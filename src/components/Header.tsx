@@ -15,24 +15,51 @@ const NAV_LINKS = [
   { href: '/lien-he', label: 'Liên hệ' },
 ];
 
-function CornerBracket({ className }: { className?: string }) {
+// The bottom-right bracket is authored as its own mirrored path (rather than
+// CSS-rotating the top-left one) so both read the same regardless of
+// rotate/transform support. At this icon size a thin stroke is easy to
+// misread as "cut off" at a glance — width/height match the viewBox 1:1
+// (no downscaling) and the stroke is a bit heavier so the full "L" reads
+// clearly rather than looking like a stray curve.
+function CornerBracket({
+  className,
+  mirrored,
+}: {
+  className?: string;
+  mirrored?: boolean;
+}) {
   return (
     <svg
-      width="26"
-      height="26"
+      width="32"
+      height="32"
       viewBox="0 0 32 32"
       fill="none"
       className={className}
       aria-hidden="true"
     >
-      <path
-        d="M2 26 L2 9 Q2 2 9 2 L26 2"
-        stroke="#D4AF37"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <circle cx="2" cy="30" r="1.5" fill="#D4AF37" />
-      <circle cx="30" cy="2" r="1.5" fill="#D4AF37" />
+      {mirrored ? (
+        <>
+          <path
+            d="M30 6 L30 23 Q30 30 23 30 L6 30"
+            stroke="#D4AF37"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+          />
+          <circle cx="30" cy="2" r="1.75" fill="#D4AF37" />
+          <circle cx="2" cy="30" r="1.75" fill="#D4AF37" />
+        </>
+      ) : (
+        <>
+          <path
+            d="M2 26 L2 9 Q2 2 9 2 L26 2"
+            stroke="#D4AF37"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+          />
+          <circle cx="2" cy="30" r="1.75" fill="#D4AF37" />
+          <circle cx="30" cy="2" r="1.75" fill="#D4AF37" />
+        </>
+      )}
     </svg>
   );
 }
@@ -75,7 +102,10 @@ export function Header() {
       <div className="absolute inset-x-0 top-0 h-[80px] lg:h-[105px] border-t-2 border-t-[#D4AF37] border-b-[3px] border-b-[#9A0009]" />
 
       <CornerBracket className="pointer-events-none absolute top-1.5 left-1.5 hidden lg:block" />
-      <CornerBracket className="pointer-events-none absolute bottom-1.5 right-1.5 hidden rotate-180 lg:block" />
+      {/* <CornerBracket
+        mirrored
+        className="pointer-events-none absolute bottom-1.5 right-1.5 hidden lg:block"
+      /> */}
 
       <div className="relative mx-auto flex h-[80px] lg:h-[105px] w-full max-w-[1440px] items-center px-4 lg:justify-center">
         {/* Mobile Header: Logo + Hamburger */}

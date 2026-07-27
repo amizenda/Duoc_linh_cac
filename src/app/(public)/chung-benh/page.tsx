@@ -42,6 +42,62 @@ const bigShouldersDisplay = localFont({
   display: 'swap',
 });
 
+// Self-contained ribbon tag: caps are fixed-shape SVGs, the middle bar is a
+// plain gradient div that stretches with the text — so unlike a ribbon baked
+// into a background image at a fixed position, this always fits whatever
+// text it wraps, no matter how long or short.
+function RibbonCap({ mirrored }: { mirrored?: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 40 60"
+      preserveAspectRatio="none"
+      className="h-full w-[22px] shrink-0 md:w-[34px]"
+      style={mirrored ? { transform: 'scaleX(-1)' } : undefined}
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id={`ribbonGold-${mirrored ? 'r' : 'l'}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#FFE3A1" />
+          <stop offset="100%" stopColor="#C98A00" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M15,2 L40,2 L40,58 L15,58 L2,30 Z"
+        fill={`url(#ribbonGold-${mirrored ? 'r' : 'l'})`}
+        stroke="#8A5A00"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <circle cx="14" cy="30" r="4.5" fill="#E1362B" stroke="#7A0000" strokeWidth="1" />
+    </svg>
+  );
+}
+
+function RibbonTag({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mx-auto mb-3 flex h-fit max-w-full items-stretch drop-shadow-md md:mb-4">
+      <RibbonCap />
+      <div
+        className="flex min-h-[38px] items-center justify-center px-3 text-center md:min-h-[56px] md:px-5"
+        style={{
+          background: 'linear-gradient(to bottom, #FFE3A1, #C98A00)',
+          borderTop: '1.5px solid #8A5A00',
+          borderBottom: '1.5px solid #8A5A00',
+        }}
+      >
+        <h3
+          className={`${bigShouldersDisplay.className} font-semibold uppercase text-[#B90407]`}
+        >
+          <span className="text-[16px] leading-tight md:text-[32px]">
+            {children}
+          </span>
+        </h3>
+      </div>
+      <RibbonCap mirrored />
+    </div>
+  );
+}
+
 export default async function DiseaseListPage() {
   return (
     <div className="w-full">
@@ -150,13 +206,7 @@ export default async function DiseaseListPage() {
                 </span>
               </div>
 
-              <h3
-                className={`${bigShouldersDisplay.className} text-[#B90407] uppercase font-semibold mb-3 md:mb-4 text-center`}
-              >
-                <span className="text-[20px] md:text-[40px] leading-tight">
-                  DO THẬN HƯ KHÍ NGHỊCH
-                </span>
-              </h3>
+              <RibbonTag>DO THẬN HƯ KHÍ NGHỊCH</RibbonTag>
 
               <div
                 className={`${beVietnamPro.className} text-[#690F0C] font-normal mb-8 text-justify`}
@@ -174,13 +224,7 @@ export default async function DiseaseListPage() {
                 </span>
               </div>
 
-              <h3
-                className={`${bigShouldersDisplay.className} text-[#B90407] uppercase font-semibold mb-3 md:mb-4 text-center`}
-              >
-                <span className="text-[20px] md:text-[40px] leading-tight">
-                  CƠ THỂ SẼ TỰ CHỮA BỆNH NHƯ THẾ NÀO?
-                </span>
-              </h3>
+              <RibbonTag>CƠ THỂ SẼ TỰ CHỮA BỆNH NHƯ THẾ NÀO?</RibbonTag>
 
               <div
                 className={`${beVietnamPro.className} text-[#690F0C] font-normal text-justify`}

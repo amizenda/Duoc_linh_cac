@@ -72,7 +72,7 @@ const bigShouldersStencilDisplay = localFont({
 export default async function HomePage() {
   return (
     <div className="">
-      <section className="relative min-h-[55vh] lg:min-h-[870px] w-full overflow-hidden bg-[#4D0000]/90">
+      <section className="relative min-h-[50vh] lg:min-h-[870px] w-full overflow-hidden bg-[#4D0000]/90">
         <Image
           src={backgroundSection1}
           alt=""
@@ -87,7 +87,7 @@ export default async function HomePage() {
           priority
         />
         <div className="relative z-10 flex flex-col items-center h-full pt-8 pb-16 lg:pt-16 lg:pb-24">
-          <div className="relative w-full max-w-[1200px] lg:max-w-[700px]">
+          <div className="relative w-[88%] max-w-[1200px] lg:w-full lg:max-w-[700px]">
             <Image
               src={bannerImage}
               alt="Dược Linh Các Banner"
@@ -98,10 +98,9 @@ export default async function HomePage() {
             />
             {/* DƯỢC LINH CÁC */}
             <h1
-              className={`${protestStrike.className} absolute top-[52%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center whitespace-nowrap animate-glow-text`}
+              className={`${protestStrike.className} absolute top-[52%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center whitespace-nowrap animate-glow-text text-[28px] min-[640px]:max-[1024px]:text-[clamp(38px,7vw,52px)] lg:text-[52px] xl:text-[66px] 2xl:text-[82px]`}
               style={{
                 top: '50%',
-                fontSize: 'clamp(26px, 5vw, 90px)',
                 lineHeight: '1',
                 color: '#FFF017',
                 textTransform: 'uppercase',
@@ -113,7 +112,7 @@ export default async function HomePage() {
 
             {/* VƯỢT TRÊN KỲ VỌNG CỦA BẠN */}
             <p
-              className={`${beVietnamPro.className} absolute left-1/2 -translate-x-1/2 w-full text-center text-[6px] lg:text-[14px]`}
+              className={`${beVietnamPro.className} absolute left-1/2 -translate-x-1/2 w-full text-center text-[7px] sm:text-[9px] md:text-[11px] lg:text-[14px]`}
               style={{
                 top: '60%',
                 fontStyle: 'italic',
@@ -148,31 +147,24 @@ export default async function HomePage() {
             >
               {/* Dòng 1: y thuật nguyễn tộc đại tôn */}
               <p
-                style={{
-                  fontSize: 'clamp(18px, 4vw, 40px)',
-                  lineHeight: '1.2',
-                }}
+                className="text-[19px] min-[640px]:max-[1024px]:text-[clamp(26px,5.2vw,40px)] lg:text-[40px]"
+                style={{ lineHeight: '1.2' }}
               >
                 y thuật nguyễn tộc đại tôn
               </p>
 
               {/* Dòng 2: vạn đại trường tồn danh kế thịnh */}
               <p
-                style={{
-                  fontSize: 'clamp(18px, 4vw, 40px)',
-                  lineHeight: '1.2',
-                }}
+                className="text-[19px] min-[640px]:max-[1024px]:text-[clamp(26px,5.2vw,40px)] lg:text-[40px]"
+                style={{ lineHeight: '1.2' }}
               >
                 vạn đại trường tồn danh kế thịnh
               </p>
 
               {/* Dòng 3: Tông chủ đời thứ 8... */}
               <p
-                className="md:mt-0 whitespace-nowrap"
-                style={{
-                  fontSize: 'clamp(16px, 3.5vw, 40px)',
-                  lineHeight: '1.2',
-                }}
+                className="md:mt-0 whitespace-nowrap text-[16px] min-[640px]:max-[1024px]:text-[clamp(22px,3.8vw,36px)] lg:text-[36px] xl:text-[40px]"
+                style={{ lineHeight: '1.2' }}
               >
                 Tông chủ đời thứ 8 – Tiến sĩ - Lương y Hùng Phi Nguyễn
               </p>
@@ -373,176 +365,294 @@ export default async function HomePage() {
                 </Reveal>
               </div>
 
-              {/* New Footer Text */}
-              <Reveal delay={200}>
-                <h3
-                  className={`${bigShouldersDisplay.className} text-center uppercase mt-6 lg:mt-12 block w-full md:max-w-[666px] font-semibold text-[20px] lg:text-[44.6px] leading-[1.2] tracking-[-0.03em] text-[#FFE7B6]`}
-                  style={{
-                    fontFeatureSettings: "'salt' on, 'kern' off",
-                  }}
-                >
-                  "Chúc mừng bạn hữu duyên biết đến DƯỢC LINH CÁC
-                  <br /> Tại sao vậy?"
-                </h3>
-              </Reveal>
 
-              {/* SECTION: NĂNG LỰC CHẨN ĐOÁN */}
-              <Reveal
-                width="w-full"
-                className="flex flex-col items-center mt-6 lg:mt-12 relative max-w-[800px] px-2"
-                delay={400}
-              >
-                {/* Header with Small Line Icon */}
-                <div className="flex flex-row md:flex-row items-center gap-2 md:gap-4 mb-4">
-                  <div className="relative w-[24px] h-[60px] md:w-[86px] md:h-[86px] flex-shrink-0">
+{/* New Footer Text + Năng Lực Chẩn Đoán — combined into one framed
+                  card (gold border + divider) instead of bare text floating
+                  on the plain section background, matching the boxed look
+                  used everywhere else on this page. */}
+              <Reveal delay={200} width="w-full">
+                <div className="mx-auto w-[92%] md:w-full max-w-[820px] rounded-2xl border-2 border-[#D4AF37] bg-black/25 px-5 py-8 md:px-14 md:py-12 shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
+                  <h3
+                    className={`${bigShouldersDisplay.className} text-center uppercase block w-full font-semibold text-[20px] lg:text-[44.6px] leading-[1.2] tracking-[-0.03em] text-[#FFE7B6]`}
+                    style={{
+                      fontFeatureSettings: "'salt' on, 'kern' off",
+                    }}
+                  >
+                    "Chúc mừng bạn hữu duyên biết đến DƯỢC LINH CÁC
+                    <br /> Tại sao vậy?"
+                  </h3>
+
+                  {/* Decoration Line divider between quote and body */}
+                  <div className="mt-4 md:mt-6 w-full flex justify-center">
                     <Image
-                      src={smallLine}
-                      alt="Small Line"
-                      fill
-                      className="object-contain"
+                      src={bigLine}
+                      alt="Decoration Line"
+                      className="w-[55%] md:w-[38%] max-w-[340px] h-auto object-contain"
                     />
                   </div>
-                  <h4
-                    className={`${bigShouldersStencilDisplay.className} uppercase text-center md:text-left w-full max-w-[492px] font-normal text-[20px] lg:text-[31.96px] leading-[1.2] tracking-[0.01em] text-[#FFE7B6]`}
-                  >
-                    NĂNG LỰC CHẨN ĐOÁN CỦA DƯỢC LINH CÁC
-                  </h4>
-                </div>
 
-                {/* Content Body */}
-                <div
-                  className={`${beVietnamPro.className} md:pl-[100px] text-left w-[90%] md:max-w-[737px] font-normal text-[10px] lg:text-[16.9px] leading-[1.5] text-[#FFE7B6]`}
-                >
-                  <p className="mb-2">
-                    Nhiều bệnh nhân từng khám ở các bệnh viện và các cơ sở Khám
-                    Chữa bệnh nhưng không tìm ra nguyên nhân.
-                  </p>
-                  <p>
-                    Nhưng tại Dược Linh Các:
-                    <br />
-                    - Nguyên Quốc tiên sinh & các đội ngũ Y – Bác sỹ chẩn đoán
-                    đúng gốc bệnh.
-                    <br />
-                    - Luận giải chính xác triệu chứng mà bệnh nhân đang mắc phải
-                    nhưng không khai bệnh.
-                    <br />- Đặc biệt các pháp điều trị và phương thuốc Nam Dược
-                    của Dược Linh Các đã chữa khỏi bệnh; giải quyết các vấn đề
-                    “vượt trên kỳ vọng”của bệnh nhân
-                  </p>
+                  {/* SECTION: NĂNG LỰC CHẨN ĐOÁN */}
+                  <div className="flex flex-col items-center mt-4 md:mt-6 relative w-full">
+                    {/* Header with Small Line Icon */}
+                    <div className="flex flex-row md:flex-row items-center gap-2 md:gap-4 mb-4">
+                      <div className="relative w-[24px] h-[60px] md:w-[86px] md:h-[86px] flex-shrink-0">
+                        <Image
+                          src={smallLine}
+                          alt="Small Line"
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+                      <h4
+                        className={`${bigShouldersStencilDisplay.className} uppercase text-center md:text-left w-full max-w-[492px] font-normal text-[20px] lg:text-[31.96px] leading-[1.2] tracking-[0.01em] text-[#FFE7B6]`}
+                      >
+                        NĂNG LỰC CHẨN ĐOÁN CỦA DƯỢC LINH CÁC
+                      </h4>
+                    </div>
+
+                    {/* Content Body */}
+                    <div
+                      className={`${beVietnamPro.className} md:pl-[100px] text-left w-full md:max-w-[737px] font-normal text-[11.5px] lg:text-[16.9px] leading-[1.5] text-[#FFE7B6]`}
+                    >
+                      <p className="mb-2">
+                        Nhiều bệnh nhân từng khám ở các bệnh viện và các cơ sở Khám
+                        Chữa bệnh nhưng không tìm ra nguyên nhân.
+                      </p>
+                      <p>
+                        Nhưng tại Dược Linh Các:
+                        <br />
+                        - Nguyên Quốc tiên sinh & các đội ngũ Y – Bác sỹ chẩn đoán
+                        đúng gốc bệnh.
+                        <br />
+                        - Luận giải chính xác triệu chứng mà bệnh nhân đang mắc phải
+                        nhưng không khai bệnh.
+                        <br />- Đặc biệt các pháp điều trị và phương thuốc Nam Dược
+                        của Dược Linh Các đã chữa khỏi bệnh; giải quyết các vấn đề
+                        “vượt trên kỳ vọng”của bệnh nhân
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </Reveal>
 
               {/* 3 TEXT BOXES (1, 2, 3) */}
               <div className="flex flex-col gap-6 lg:gap-10 mt-6 lg:mt-12 w-full max-w-[1000px] items-center pb-10 lg:pb-20">
-                {/* Box 1 */}
+{/* Box 1 */}
                 <Reveal width="w-full" className="relative" dir="left">
-                  <Image
-                    src={textBox1}
-                    alt="Text Box 1"
-                    className="w-full h-auto object-contain"
-                  />
-                  <p
-                    className={`${beVietnamPro.className} absolute top-[4%] md:top-[8%] left-5 md:left-0 w-full flex items-center justify-center text-center px-4 font-bold text-[12px] lg:text-[16.9px] leading-[1.2] text-[#FFF017]`}
-                  >
-                    Giá trị cốt lõi của DLC – Bí truyền Nam Dược
-                  </p>
-                  <div
-                    className={`${beVietnamPro.className} absolute top-[30%] left-[58%] md:left-[58%] -translate-x-1/2 w-[80%] md:w-[80%] flex flex-col gap-1 lg:gap-2 font-normal text-[6px] lg:text-[16.9px] leading-[1.2] text-[#FFE7B6] text-left`}
-                  >
-                    <p>
-                      - Các vị thuốc gia truyền là những vị thuốc quý từ rừng
-                      nguyên sinh VN, nhiều vị thuốc bộ dây có tuổi thọ từ 60–80
-                      năm chỉ có ở rừng nguyên sinh, nhiều bộ rễ, củ được tìm
-                      kiếm ở các vị trí cheo leo, khó khai thác nhưng công dụng
-                      bí truyền vô cùng vi diệu.
+                  {/* Mobile: one closed gold-border card (badge + title + body
+                      together) instead of an image sized for a taller card
+                      that no longer matches once body copy moved out of it. */}
+                  <div className="md:hidden rounded-2xl border-2 border-[#D4AF37] bg-black/25 p-4 shadow-[0_8px_24px_rgba(0,0,0,0.3)]">
+                    <div className="flex items-start gap-3 mb-3">
+                      <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-lg border border-[#D4AF37] bg-black/40">
+                        <span className={`${protestStrike.className} text-[24px] text-[#FFF017]`}>
+                          1
+                        </span>
+                      </div>
+                      <p
+                        className={`${beVietnamPro.className} flex-1 pt-2 text-left font-bold text-[12px] leading-[1.3] text-[#FFF017]`}
+                      >
+                        Giá trị cốt lõi của DLC – Bí truyền Nam Dược
+                      </p>
+                    </div>
+                    <div
+                      className={`${beVietnamPro.className} flex flex-col gap-1.5 text-left font-normal text-[11px] leading-[1.3] text-[#FFE7B6]`}
+                    >
+                      <p>
+                        - Các vị thuốc gia truyền là những vị thuốc quý từ rừng
+                        nguyên sinh VN, nhiều vị thuốc bộ dây có tuổi thọ từ
+                        60–80 năm chỉ có ở rừng nguyên sinh, nhiều bộ rễ, củ
+                        được tìm kiếm ở các vị trí cheo leo, khó khai thác
+                        nhưng công dụng bí truyền vô cùng vi diệu.
+                      </p>
+                      <p>
+                        - Thuốc nam được bào chế nguyên chất, không xao tẩm
+                        hương liệu, không có chất bảo quản.
+                      </p>
+                      <p>
+                        - Khi bào chế còn được lựa chọn điểm Phơi–Sấy trên nền
+                        Đất Cát Mạch để hấp thụ Thiên Khí và Địa Tinh của Trời
+                        Đất – theo đó dược tính được phát huy công hiệu mà
+                        khoa học không giải thích được nên gọi đó là Huyền Cơ.
+                      </p>
+                      <p>
+                        - Thực tiễn cho thấy vẫn những vị thuốc đó không may
+                        phơi trên nền đất Địa Tinh là Hung Mạch (đặc bệt xấu
+                        nếu hung mạch đó thuộc mạch Thọ Tử Kim Lâu hoặc mạch
+                        Vãng Lai Tâm) → công dụng giảm đi rất nhiều.
+                      </p>
+                      <p>
+                        - Nguồn nguyên liệu của DLC phát huy được tất cả những
+                        thế mạnh Huyền Cơ và khắc phục những điểm yếu nêu trên.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Tablet/desktop: original image-overlay design, unchanged */}
+                  <div className="relative hidden md:block">
+                    <Image
+                      src={textBox1}
+                      alt="Text Box 1"
+                      className="w-full h-auto object-contain"
+                    />
+                    <p
+                      className={`${beVietnamPro.className} absolute top-[8%] left-0 w-full flex items-center justify-center text-center px-4 font-bold text-[16.9px] leading-[1.2] text-[#FFF017]`}
+                    >
+                      Giá trị cốt lõi của DLC – Bí truyền Nam Dược
                     </p>
-                    <p>
-                      - Thuốc nam được bào chế nguyên chất, không xao tẩm hương
-                      liệu, không có chất bảo quản.
-                    </p>
-                    <p>
-                      - Khi bào chế còn được lựa chọn điểm Phơi–Sấy trên nền Đất
-                      Cát Mạch để hấp thụ Thiên Khí và Địa Tinh của Trời Đất –
-                      theo đó dược tính được phát huy công hiệu mà khoa học
-                      không giải thích được nên gọi đó là Huyền Cơ.
-                    </p>
-                    <p>
-                      - Thực tiễn cho thấy vẫn những vị thuốc đó không may phơi
-                      trên nền đất Địa Tinh là Hung Mạch (đặc bệt xấu nếu hung
-                      mạch đó thuộc mạch Thọ Tử Kim Lâu hoặc mạch Vãng Lai Tâm)
-                      → công dụng giảm đi rất nhiều.
-                    </p>
-                    <p>
-                      - Nguồn nguyên liệu của DLC phát huy được tất cả những thế
-                      mạnh Huyền Cơ và khắc phục những điểm yếu nêu trên.
-                    </p>
+                    <div
+                      className={`${beVietnamPro.className} absolute top-[26%] left-[58%] -translate-x-1/2 w-[80%] flex flex-col gap-1.5 font-normal text-[16.9px] leading-[1.3] text-[#FFE7B6] text-left`}
+                    >
+                      <p>
+                        - Các vị thuốc gia truyền là những vị thuốc quý từ rừng
+                        nguyên sinh VN, nhiều vị thuốc bộ dây có tuổi thọ từ
+                        60–80 năm chỉ có ở rừng nguyên sinh, nhiều bộ rễ, củ
+                        được tìm kiếm ở các vị trí cheo leo, khó khai thác
+                        nhưng công dụng bí truyền vô cùng vi diệu.
+                      </p>
+                      <p>
+                        - Thuốc nam được bào chế nguyên chất, không xao tẩm
+                        hương liệu, không có chất bảo quản.
+                      </p>
+                      <p>
+                        - Khi bào chế còn được lựa chọn điểm Phơi–Sấy trên nền
+                        Đất Cát Mạch để hấp thụ Thiên Khí và Địa Tinh của Trời
+                        Đất – theo đó dược tính được phát huy công hiệu mà
+                        khoa học không giải thích được nên gọi đó là Huyền Cơ.
+                      </p>
+                      <p>
+                        - Thực tiễn cho thấy vẫn những vị thuốc đó không may
+                        phơi trên nền đất Địa Tinh là Hung Mạch (đặc bệt xấu
+                        nếu hung mạch đó thuộc mạch Thọ Tử Kim Lâu hoặc mạch
+                        Vãng Lai Tâm) → công dụng giảm đi rất nhiều.
+                      </p>
+                      <p>
+                        - Nguồn nguyên liệu của DLC phát huy được tất cả những
+                        thế mạnh Huyền Cơ và khắc phục những điểm yếu nêu trên.
+                      </p>
+                    </div>
                   </div>
                 </Reveal>
 
                 {/* Box 2 */}
                 <Reveal width="w-full" className="relative" dir="right">
-                  <Image
-                    src={textBox2}
-                    alt="Text Box 2"
-                    className="w-full h-auto object-contain"
-                  />
-                  <p
-                    className={`${beVietnamPro.className} absolute bottom-[82%] md:top-[10%] left-13 md:left-0 w-[80%] md:w-full flex items-center justify-center text-left px-2 font-bold text-[12px] lg:text-[16.9px] leading-[1.2] text-[#FFF017]`}
-                  >
-                    Tại sao thuốc Nam tốt, quý và hiệu quả hơn thuốc Bắc?
-                  </p>
-                  <div
-                    className={`${beVietnamPro.className} absolute top-[45%] left-[58%] md:left-[58%] -translate-x-1/2 w-[80%] md:w-[80%] flex flex-col gap-1 lg:gap-2 font-normal text-[6px] lg:text-[16.9px] leading-[1.2] text-[#FFE7B6] text-left`}
-                  >
-                    <p>
-                      - Thuốc Bắc ở TQ là trồng ở các vùng nguyên liệu có thời
-                      hạn tối đa 5 năm là khai thác, do TQ có chính sách bảo tồn
-                      rừng nguyên sinh, không cho người dân tiếp cận, khai thác
-                      dược liệu.
+                  {/* Mobile: closed card */}
+                  <div className="md:hidden rounded-2xl border-2 border-[#D4AF37] bg-black/25 p-4 shadow-[0_8px_24px_rgba(0,0,0,0.3)]">
+                    <div className="flex items-start gap-3 mb-3">
+                      <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-lg border border-[#D4AF37] bg-black/40">
+                        <span className={`${protestStrike.className} text-[24px] text-[#FFF017]`}>
+                          2
+                        </span>
+                      </div>
+                      <p
+                        className={`${beVietnamPro.className} flex-1 pt-2 text-left font-bold text-[12px] leading-[1.3] text-[#FFF017]`}
+                      >
+                        Tại sao thuốc Nam tốt, quý và hiệu quả hơn thuốc Bắc?
+                      </p>
+                    </div>
+                    <div
+                      className={`${beVietnamPro.className} flex flex-col gap-1.5 text-left font-normal text-[11px] leading-[1.3] text-[#FFE7B6]`}
+                    >
+                      <p>
+                        - Thuốc Bắc ở TQ là trồng ở các vùng nguyên liệu có
+                        thời hạn tối đa 5 năm là khai thác, do TQ có chính
+                        sách bảo tồn rừng nguyên sinh, không cho người dân
+                        tiếp cận, khai thác dược liệu.
+                      </p>
+                      <p>
+                        - Ngoài ra để bảo quản và vẫn chuyển xuất khẩu thuốc
+                        Bắc thường được xông chất chống mốc để vận chuyển
+                        .Nên phần nào ảnh hưởng đến dược tính và sự phụ thuộc
+                        vào nguồn nguyên liệu của nhiều Y Gia.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Tablet/desktop: original image-overlay design, unchanged */}
+                  <div className="relative hidden md:block">
+                    <Image
+                      src={textBox2}
+                      alt="Text Box 2"
+                      className="w-full h-auto object-contain"
+                    />
+                    <p
+                      className={`${beVietnamPro.className} absolute top-[10%] left-0 w-full flex items-center justify-center text-left px-1 font-bold text-[16.9px] leading-[1.2] text-[#FFF017]`}
+                    >
+                      Tại sao thuốc Nam tốt, quý và hiệu quả hơn thuốc Bắc?
                     </p>
-                    <p>
-                      - Ngoài ra để bảo quản và vẫn chuyển xuất khẩu thuốc Bắc
-                      thường được xông chất chống mốc để vận chuyển .Nên phần
-                      nào ảnh hưởng đến dược tính và sự phụ thuộc vào nguồn
-                      nguyên liệu của nhiều Y Gia.
-                    </p>
+                    <div
+                      className={`${beVietnamPro.className} absolute top-[42%] left-[58%] -translate-x-1/2 w-[80%] flex flex-col gap-2 font-normal text-[16.9px] leading-[1.3] text-[#FFE7B6] text-left`}
+                    >
+                      <p>
+                        - Thuốc Bắc ở TQ là trồng ở các vùng nguyên liệu có
+                        thời hạn tối đa 5 năm là khai thác, do TQ có chính
+                        sách bảo tồn rừng nguyên sinh, không cho người dân
+                        tiếp cận, khai thác dược liệu.
+                      </p>
+                      <p>
+                        - Ngoài ra để bảo quản và vẫn chuyển xuất khẩu thuốc
+                        Bắc thường được xông chất chống mốc để vận chuyển
+                        .Nên phần nào ảnh hưởng đến dược tính và sự phụ thuộc
+                        vào nguồn nguyên liệu của nhiều Y Gia.
+                      </p>
+                    </div>
                   </div>
                 </Reveal>
 
                 {/* Box 3 */}
                 <Reveal width="w-full" className="relative mt-2" dir="left">
-                  <Image
-                    src={textBox3}
-                    alt="Text Box 3"
-                    className="w-full h-auto object-contain"
-                  />
-                  <p
-                    className={`${beVietnamPro.className} absolute bottom-[72%] md:top-[10%] left-13 md:left-30 w-[80%] md:w-full flex items-center justify-center text-left px-2 font-bold text-[12px] lg:text-[16.9px] leading-[1.2] text-[#FFF017]`}
-                  >
-                    <span className="block md:hidden">
-                      Hãy cùng Dược Linh Các chỉnh Tâm - sửa Tính để tự chữa
-                      lành vi diệu
-                    </span>
+                  {/* Mobile: closed card */}
+                  <div className="md:hidden rounded-2xl border-2 border-[#D4AF37] bg-black/25 p-4 shadow-[0_8px_24px_rgba(0,0,0,0.3)]">
+                    <div className="flex items-start gap-3 mb-3">
+                      <div className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-lg border border-[#D4AF37] bg-black/40">
+                        <span className={`${protestStrike.className} text-[24px] text-[#FFF017]`}>
+                          3
+                        </span>
+                      </div>
+                      <p
+                        className={`${beVietnamPro.className} flex-1 pt-2 text-left font-bold text-[12px] leading-[1.3] text-[#FFF017]`}
+                      >
+                        Hãy cùng Dược Linh Các chỉnh Tâm - sửa Tính để tự chữa
+                        lành vi diệu
+                      </p>
+                    </div>
+                    <div
+                      className={`${beVietnamPro.className} flex flex-col gap-1 text-left font-normal text-[10.5px] leading-[1.3] text-[#FFE7B6]`}
+                    >
+                      <p>
+                        - Năng lực tự chữa bệnh của con người là vô cùng vi
+                        diệu nên dù thuốc quý đến đâu bạn cũng nên hợp tác vs
+                        DLC để chỉnh tâm-sửa tính.
+                      </p>
+                    </div>
+                  </div>
 
-                    {/* Nội dung ẩn trên Mobile, hiện trên Desktop */}
-                    <span className="hidden md:block">
-                      Năng lực tự chữa bệnh của con người là vô cùng vi diệu nên
-                      dù <br />
+                  {/* Tablet/desktop: original image-overlay design, unchanged */}
+                  <div className="relative hidden md:block">
+                    <Image
+                      src={textBox3}
+                      alt="Text Box 3"
+                      className="w-full h-auto object-contain"
+                    />
+                    <p
+                      className={`${beVietnamPro.className} absolute top-[10%] left-30 w-full flex items-center justify-center text-left px-2 font-bold text-[16.9px] leading-[1.2] text-[#FFF017]`}
+                    >
+                      Năng lực tự chữa bệnh của con người là vô cùng vi diệu
+                      nên dù <br />
                       thuốc quý đến đâu bạn cũng nên hợp tác với Dược Linh Các
                       để chỉnh tâm - sửa tính.
-                    </span>
-                  </p>
-                  <div
-                    className={`${beVietnamPro.className} absolute top-[60%] left-[58%] md:left-[58%] -translate-x-1/2 w-[80%] md:w-[80%] flex flex-col gap-1 lg:gap-2 font-normal text-[6px] lg:text-[16.9px] leading-[1.2] text-[#FFE7B6] text-left`}
-                  >
-                    <p>
-                      - Năng lực tự chữa bệnh của con người là vô cùng vi diệu
-                      nên dù thuốc quý đến đâu bạn cũng nên hợp tác vs DLC để
-                      chỉnh tâm-sửa tính.
                     </p>
+                    <div
+                      className={`${beVietnamPro.className} absolute top-[60%] left-[58%] -translate-x-1/2 w-[80%] flex flex-col gap-2 font-normal text-[16.9px] leading-[1.3] text-[#FFE7B6] text-left`}
+                    >
+                      <p>
+                        - Năng lực tự chữa bệnh của con người là vô cùng vi
+                        diệu nên dù thuốc quý đến đâu bạn cũng nên hợp tác vs
+                        DLC để chỉnh tâm-sửa tính.
+                      </p>
+                    </div>
                   </div>
                 </Reveal>
-
                 <div className="flex flex-col w-full items-center gap-4 mt-2">
                   {/* Decoration Line below Box 4 */}
                   <div className="lg:mt-8 w-full flex justify-center ">
