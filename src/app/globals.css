@@ -27,21 +27,31 @@ body {
 }
 
 @keyframes glow {
-  0%,
-  100% {
-    text-shadow:
-      0 0 5px #fff017,
-      0 0 10px #ff9900,
-      0 0 15px #ed333e;
+  0% {
+    background-position: 0% 0;
   }
-  50% {
-    text-shadow:
-      0 0 10px #fff017,
-      0 0 20px #ff9900,
-      0 0 30px #ed333e;
+  45%,
+  100% {
+    background-position: 100% 0;
   }
 }
 
 .animate-glow-text {
-  animation: glow 2.5s ease-in-out infinite;
+  background-image: linear-gradient(
+    100deg,
+    #fff017 0%,
+    #fff017 34%,
+    #c98a00 43%,
+    #ffffff 50%,
+    #c98a00 57%,
+    #fff017 66%,
+    #fff017 100%
+  );
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+  background-position: 0% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glow 3.4s ease-in-out infinite;
 }

@@ -33,7 +33,7 @@ const protestStrike = Protest_Strike({
 });
 
 const beVietnamPro = Be_Vietnam_Pro({
-  weight: ['400', '500', '600', '700'],
+  weight: ['300', '400', '500', '600', '700'],
   style: ['normal', 'italic'],
   subsets: ['latin', 'vietnamese'],
   display: 'swap',
@@ -72,7 +72,7 @@ const bigShouldersStencilDisplay = localFont({
 export default async function HomePage() {
   return (
     <div className="">
-      <section className="relative min-h-[55vh] lg:min-h-[1000px] w-full overflow-hidden bg-[#4D0000]/90">
+      <section className="relative min-h-[55vh] lg:min-h-[870px] w-full overflow-hidden bg-[#4D0000]/90">
         <Image
           src={backgroundSection1}
           alt=""
@@ -86,8 +86,8 @@ export default async function HomePage() {
           }}
           priority
         />
-        <div className="relative z-10 flex flex-col items-center h-full lg:pt-0">
-          <div className="relative w-full max-w-[1200px]">
+        <div className="relative z-10 flex flex-col items-center h-full pt-8 pb-16 lg:pt-16 lg:pb-24">
+          <div className="relative w-full max-w-[1200px] lg:max-w-[700px]">
             <Image
               src={bannerImage}
               alt="Dược Linh Các Banner"
@@ -100,7 +100,7 @@ export default async function HomePage() {
             <h1
               className={`${protestStrike.className} absolute top-[52%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center whitespace-nowrap animate-glow-text`}
               style={{
-                top: '47.5%',
+                top: '50%',
                 fontSize: 'clamp(26px, 5vw, 90px)',
                 lineHeight: '1',
                 color: '#FFF017',
@@ -113,9 +113,9 @@ export default async function HomePage() {
 
             {/* VƯỢT TRÊN KỲ VỌNG CỦA BẠN */}
             <p
-              className="absolute left-1/2 -translate-x-1/2 w-full text-center text-[6px] lg:text-[16px]"
+              className={`${beVietnamPro.className} absolute left-1/2 -translate-x-1/2 w-full text-center text-[6px] lg:text-[14px]`}
               style={{
-                top: '54%',
+                top: '60%',
                 fontStyle: 'italic',
                 fontWeight: 300,
                 color: '#FFF017',
@@ -125,7 +125,7 @@ export default async function HomePage() {
               - VƯỢT TRÊN KỲ VỌNG CỦA BẠN -
             </p>
             {/* BIG LINE DECORATION */}
-            <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center top-[85%] w-[60%] lg:w-[90%] max-w-[700px] h-auto">
+            <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center top-[115%] w-[60%] lg:w-[90%] max-w-[700px] h-auto">
               <Image
                 src={bigLine}
                 alt="Decoration Line"
@@ -138,7 +138,7 @@ export default async function HomePage() {
             </div>
             {/* 3 DÒNG TEXT MỚI */}
             <div
-              className={`absolute top-[115%] left-1/2 -translate-x-1/2 w-full flex flex-col items-center gap-1 md:gap-2 ${bigShouldersDisplay.className}`}
+              className={`absolute top-[155%] left-1/2 -translate-x-1/2 w-full flex flex-col items-center gap-1 md:gap-2 ${bigShouldersDisplay.className}`}
               style={{
                 color: '#FDE3B1',
                 textTransform: 'uppercase',
@@ -168,7 +168,7 @@ export default async function HomePage() {
 
               {/* Dòng 3: Tông chủ đời thứ 8... */}
               <p
-                className="md:mt-0"
+                className="md:mt-0 whitespace-nowrap"
                 style={{
                   fontSize: 'clamp(16px, 3.5vw, 40px)',
                   lineHeight: '1.2',
@@ -180,6 +180,28 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* SCALLOP / ROOF-TILE WAVE SEAM */}
+      <div className="relative z-20 w-full -mt-[36px] lg:-mt-[56px] pointer-events-none">
+        <svg
+          viewBox="0 0 1440 60"
+          preserveAspectRatio="none"
+          className="w-full h-[36px] lg:h-[56px] block"
+          style={{ filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.35))' }}
+        >
+          <defs>
+            <linearGradient id="roofTileGold" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#C98A00" />
+              <stop offset="50%" stopColor="#FFD272" />
+              <stop offset="100%" stopColor="#C98A00" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M0,10 a45,18 0 0 0 90,0 a45,18 0 0 0 90,0 a45,18 0 0 0 90,0 a45,18 0 0 0 90,0 a45,18 0 0 0 90,0 a45,18 0 0 0 90,0 a45,18 0 0 0 90,0 a45,18 0 0 0 90,0 a45,18 0 0 0 90,0 a45,18 0 0 0 90,0 a45,18 0 0 0 90,0 a45,18 0 0 0 90,0 a45,18 0 0 0 90,0 a45,18 0 0 0 90,0 a45,18 0 0 0 90,0 a45,18 0 0 0 90,0 L1440,60 L0,60 Z"
+            fill="url(#roofTileGold)"
+          />
+        </svg>
+      </div>
 
       <section className="relative min-h-[1000px] lg:min-h-[3000px] w-full overflow-hidden bg-[#4D0000]/90 lg:pt-32 pt-8 lg:pb-20">
         <Image

@@ -1,22 +1,35 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { Be_Vietnam_Pro } from 'next/font/google';
 
 import footerBackground from '@/assets/footer/footer-background.png';
 import logo from '@/assets/logo/logo-footer.png';
 
+const beVietnamPro = Be_Vietnam_Pro({
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin', 'vietnamese'],
+  display: 'swap',
+});
+
+const sairaStyle = { fontFamily: 'var(--font-saira)' };
+
 export function Footer() {
   return (
     <footer className="relative w-full bg-[#FCF8EE]">
-      {/* Background Image - Absolute cover */}
-      <div className="absolute inset-0 z-0 select-none pointer-events-none">
-        <Image
-          src={footerBackground}
-          alt=""
-          fill
-          className="object-cover object-bottom opacity-100"
-          priority
-        />
-      </div>
+      {/* Background frame - 9-slice border-image so the corner ornaments
+          never get cropped, regardless of the footer's aspect ratio
+          (browser zoom / text reflow changes footer height vs width). */}
+      <div
+        className="absolute inset-0 z-0 select-none pointer-events-none"
+        style={{
+          borderStyle: 'solid',
+          borderWidth: '28px',
+          borderImageSource: `url(${footerBackground.src})`,
+          borderImageSlice: '160',
+          borderImageWidth: '28px',
+          borderImageRepeat: 'stretch',
+        }}
+      />
 
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 py-8 lg:px-10 lg:py-16">
         <div className="grid grid-cols-1 gap-8 text-[#771010] lg:grid-cols-12 lg:gap-8">
@@ -49,14 +62,20 @@ export function Footer() {
           <div className="col-span-1 grid grid-cols-2 gap-4 lg:col-span-5 lg:gap-8 ml-8">
             {/* Cột 2: Về Chúng Tôi */}
             <div className="flex flex-col items-center text-left lg:items-start lg:text-left lg:pl-10">
-              <h3 className="text-[14px] font-bold leading-[18px] lg:text-[18px] lg:leading-[20px]">
+              <h3
+                className="text-[14px] font-bold leading-[18px] lg:text-[18px] lg:leading-[20px]"
+                style={sairaStyle}
+              >
                 DƯỢC LINH CÁC
               </h3>
-              <div className="mt-4 space-y-2 text-[12px] leading-[18px] lg:mt-7 lg:space-y-3 lg:text-[16px] lg:leading-[21px]">
-                <Link href="/gioi-thieu" className="block hover:underline">
+              <div
+                className="mt-4 space-y-2 text-[12px] leading-[18px] lg:mt-7 lg:space-y-3 lg:text-[16px] lg:leading-[21px]"
+                style={sairaStyle}
+              >
+                <Link href="/lien-he" className="block hover:underline">
                   VỀ CHÚNG TÔI
                 </Link>
-                <Link href="/hoi-duyen" className="block hover:underline">
+                <Link href="/" className="block hover:underline">
                   HỘI DUYÊN
                 </Link>
                 <Link href="/chung-benh" className="block hover:underline">
@@ -70,10 +89,16 @@ export function Footer() {
 
             {/* Cột 3: Dịch Vụ */}
             <div className="flex flex-col item-center text-left lg:items-start lg:text-left">
-              <h3 className="text-[14px] font-bold leading-[18px] lg:text-[18px] lg:leading-[20px]">
+              <h3
+                className="text-[14px] font-bold leading-[18px] lg:text-[18px] lg:leading-[20px]"
+                style={sairaStyle}
+              >
                 DỊCH VỤ
               </h3>
-              <div className="mt-4 space-y-2 text-[12px] leading-[18px] lg:mt-7 lg:space-y-3 lg:text-[16px] lg:leading-[21px]">
+              <div
+                className="mt-4 space-y-2 text-[12px] leading-[18px] lg:mt-7 lg:space-y-3 lg:text-[16px] lg:leading-[21px]"
+                style={sairaStyle}
+              >
                 <Link href="/dich-vu" className="block hover:underline">
                   Y TRÀ DƯỠNG SINH
                 </Link>
@@ -92,12 +117,30 @@ export function Footer() {
 
           {/* Cột 4: Liên Hệ - Chiếm rộng nhất */}
           <div className="flex flex-col items-center text-center lg:col-span-4 lg:items-start lg:text-left">
-            <h3 className="text-[14px] font-bold leading-[18px] lg:text-[18px] lg:leading-[20px]">
+            <h3
+              className="text-[14px] font-bold leading-[18px] lg:text-[18px] lg:leading-[20px]"
+              style={sairaStyle}
+            >
               LIÊN HỆ
             </h3>
-            <div className="mt-4 space-y-2 text-[12px] font-medium leading-[18px] lg:mt-7 lg:space-y-3 lg:text-[15px] lg:leading-[20px]">
-              <p className="uppercase">Tư vấn: 0366659999</p>
-              <p>EMAIL: duoclinhcac@gmail.com</p>
+            <div
+              className={`${beVietnamPro.className} mt-4 space-y-2 text-[12px] font-medium leading-[18px] lg:mt-7 lg:space-y-3 lg:text-[15px] lg:leading-[20px]`}
+            >
+              <p className="uppercase">
+                Tư vấn:{' '}
+                <a href="tel:0366659999" className="hover:underline">
+                  0366659999
+                </a>
+              </p>
+              <p>
+                EMAIL:{' '}
+                <a
+                  href="mailto:duoclinhcac@gmail.com"
+                  className="hover:underline"
+                >
+                  duoclinhcac@gmail.com
+                </a>
+              </p>
               <p>ĐỊA CHỈ:</p>
               <p>290/2 Nam kì Khởi Nghĩa, phường Võ Thị Sáu, Quận 3, TP.HCM</p>
               <p>71 Phan Đăng Lưu, phường Suối Hoa, Bắc Ninh</p>

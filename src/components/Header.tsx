@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -15,9 +15,43 @@ const NAV_LINKS = [
   { href: '/lien-he', label: 'Liên hệ' },
 ];
 
+function CornerBracket({ className }: { className?: string }) {
+  return (
+    <svg
+      width="26"
+      height="26"
+      viewBox="0 0 32 32"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        d="M2 26 L2 9 Q2 2 9 2 L26 2"
+        stroke="#D4AF37"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <circle cx="2" cy="30" r="1.5" fill="#D4AF37" />
+      <circle cx="30" cy="2" r="1.5" fill="#D4AF37" />
+    </svg>
+  );
+}
+
+function NavDot() {
+  return (
+    <span
+      className="h-[6px] w-[6px] shrink-0 rotate-45 bg-[#D4AF37]"
+      aria-hidden="true"
+    />
+  );
+}
+
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+
+  const isActive = (href: string) =>
+    pathname === href || pathname.startsWith(`${href}/`);
 
   // Close menu when route changes
   useEffect(() => {
@@ -37,8 +71,11 @@ export function Header() {
   }, [isOpen]);
 
   return (
-    <header className="fixed top-0 left-0 w-screen bg-[#F9FFDC] z-50">
-      <div className="absolute inset-x-0 top-0 h-[80px] lg:h-[105px] border-b-[3px] border-[#9A0009]" />
+    <header className="fixed top-0 left-0 w-screen bg-gradient-to-b from-[#FFFDF2] via-[#F9FFDC] to-[#F3ECC7] z-50">
+      <div className="absolute inset-x-0 top-0 h-[80px] lg:h-[105px] border-t-2 border-t-[#D4AF37] border-b-[3px] border-b-[#9A0009]" />
+
+      <CornerBracket className="pointer-events-none absolute top-1.5 left-1.5 hidden lg:block" />
+      <CornerBracket className="pointer-events-none absolute bottom-1.5 right-1.5 hidden rotate-180 lg:block" />
 
       <div className="relative mx-auto flex h-[80px] lg:h-[105px] w-full max-w-[1440px] items-center px-4 lg:justify-center">
         {/* Mobile Header: Logo + Hamburger */}
@@ -100,10 +137,10 @@ export function Header() {
         {/* Desktop Nav */}
         <nav
           aria-label="Primary"
-          className="hidden items-center gap-8 text-[16px] font-medium uppercase leading-[25px] tracking-wide text-[#771010] lg:flex lg:gap-16"
+          className="hidden items-center gap-4 text-[16px] font-medium uppercase leading-[25px] tracking-wide text-[#771010] lg:flex lg:gap-6"
           style={{ fontFamily: 'var(--font-saira)' }}
         >
-          <Link href="/" aria-label="Dược Linh Các" className="shrink-0">
+          <Link href="/" aria-label="Dược Linh Các" className="shrink-0 mr-2">
             <Image
               src={logo}
               alt="Dược Linh Các"
@@ -112,15 +149,26 @@ export function Header() {
             />
           </Link>
 
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="hover:text-[#5f0c0c]"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {NAV_LINKS.map((link, index) => {
+            const active = isActive(link.href);
+            return (
+              <Fragment key={link.href}>
+                {index > 0 && <NavDot />}
+                <Link
+                  href={link.href}
+                  className={`relative pb-1 transition-colors hover:text-[#5f0c0c] ${
+                    active ? 'font-bold text-[#9A0009]' : ''
+                  }`}
+                  aria-current={active ? 'page' : undefined}
+                >
+                  {link.label}
+                  {active && (
+                    <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#D4AF37]" />
+                  )}
+                </Link>
+              </Fragment>
+            );
+          })}
         </nav>
       </div>
 
@@ -134,16 +182,23 @@ export function Header() {
           className="flex flex-col items-center gap-8 text-[18px] font-bold uppercase text-[#771010]"
           style={{ fontFamily: 'var(--font-saira)' }}
         >
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className="hover:text-[#5f0c0c]"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const active = isActive(link.href);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className={`relative pb-1 hover:text-[#5f0c0c] ${active ? 'text-[#9A0009]' : ''}`}
+                aria-current={active ? 'page' : undefined}
+              >
+                {link.label}
+                {active && (
+                  <span className="absolute -bottom-1 left-1/2 h-[2px] w-6 -translate-x-1/2 bg-[#D4AF37]" />
+                )}
+              </Link>
+            );
+          })}
         </nav>
       </div>
     </header>
