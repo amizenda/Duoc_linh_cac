@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import type {
   Category,
   ContentDetail,
@@ -81,9 +82,11 @@ export async function fetchContentList(params: {
   );
 }
 
-export async function fetchContentDetail(slug: string): Promise<ContentDetail> {
-  return await fetchJson<ContentDetail>(`/api/public/contents/${slug}`);
-}
+export const fetchContentDetail = cache(
+  async (slug: string): Promise<ContentDetail> => {
+    return await fetchJson<ContentDetail>(`/api/public/contents/${slug}`);
+  },
+);
 
 export async function fetchFeaturedContents(
   category?: string,

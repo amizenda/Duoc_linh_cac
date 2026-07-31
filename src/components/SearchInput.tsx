@@ -29,17 +29,7 @@ export function SearchInput() {
   return (
     <input
       type="text"
-      className={`absolute flex items-center justify-center outline-none bg-[#4D0000]/90 text-[#FFF9A7] placeholder-[#FFF9A7]/70 ${beVietnamPro.className} p-2`}
-      style={{
-        width: '299px',
-        height: '40px',
-        left: '13px',
-        top: '12px',
-        fontWeight: 400,
-        fontSize: '12px',
-        lineHeight: '15px',
-        border: 'none',
-      }}
+      className={`w-full h-11 rounded-lg border border-[#FDE3B1]/30 bg-[#4D0000]/90 text-[#FFF9A7] placeholder-[#FFF9A7]/60 px-4 text-sm outline-none focus:ring-2 focus:ring-[#E75739] focus:border-transparent transition ${beVietnamPro.className}`}
       placeholder="Tìm kiếm bài viết..."
       defaultValue={searchParams.get('query')?.toString()}
       onChange={(e) => {

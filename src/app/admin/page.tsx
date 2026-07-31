@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { DashboardStats } from './DashboardStats';
 
 export const metadata: Metadata = {
   title: 'Admin Dashboard',
@@ -9,12 +10,11 @@ export const metadata: Metadata = {
 export default function AdminHomePage() {
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-between border-b border-[#E75739] pb-4">
+      <div className="border-b border-[#E75739] pb-4">
         <h1 className="text-3xl font-bold text-[#4D0000]">Tổng quan</h1>
-        <span className="text-sm font-medium text-[#760000] bg-[#FFF9A7] px-3 py-1 rounded-full">
-          Live Status: 🟢 Online
-        </span>
       </div>
+
+      <DashboardStats />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Card 1: Nội dung */}
@@ -64,32 +64,6 @@ export default function AdminHomePage() {
           </div>
         </Link>
       </div>
-
-      {/* Recent Activity Section (Placeholder) */}
-      {/* <div className="rounded-xl border border-[#E75739]/20 bg-white p-6 shadow-sm">
-        <h2 className="text-lg font-bold text-[#4D0000] mb-4">
-          Hoạt động gần đây
-        </h2>
-        <div className="space-y-3">
-          {[1, 2, 3].map((_, i) => (
-            <div
-              key={i}
-              className="flex items-center justify-between border-b last:border-0 border-dashed border-[#E75739]/20 pb-3 last:pb-0"
-            >
-              <div className="flex items-center gap-3">
-                <span className="h-2 w-2 rounded-full bg-[#E75739]" />
-                <span className="text-sm text-zinc-600">
-                  Admin vừa cập nhật bài viết{' '}
-                  <span className="font-semibold text-[#760000]">
-                    "Sức khỏe mùa hè..."
-                  </span>
-                </span>
-              </div>
-              <span className="text-xs text-zinc-400">2 giờ trước</span>
-            </div>
-          ))}
-        </div>
-      </div> */}
     </div>
   );
 }

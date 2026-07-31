@@ -5,6 +5,7 @@ export * from './Disclaimer';
 export * from './Footer';
 export * from './Header';
 export * from './JadeTablet';
+export * from './PostCard';
 export * from './RichText';
 export * from './SearchInput';
 export * from './Reveal';

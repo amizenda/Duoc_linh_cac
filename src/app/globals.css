@@ -4,6 +4,13 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --admin-maroon: #4d0000;
+  --admin-maroon-hover: #3a0000;
+  --admin-orange: #e75739;
+  --admin-orange-hover: #d1492e;
+  --admin-gold: #fff9a7;
+  --admin-cream: #fdfbf7;
+  --admin-border: #e5e1da;
 }
 
 @theme inline {
@@ -11,6 +18,13 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-admin-maroon: var(--admin-maroon);
+  --color-admin-maroon-hover: var(--admin-maroon-hover);
+  --color-admin-orange: var(--admin-orange);
+  --color-admin-orange-hover: var(--admin-orange-hover);
+  --color-admin-gold: var(--admin-gold);
+  --color-admin-cream: var(--admin-cream);
+  --color-admin-border: var(--admin-border);
 }
 
 @media (prefers-color-scheme: dark) {
