@@ -45,12 +45,14 @@ export type LeadPayload = {
   company?: string;
 };
 
-export type SettingsDto = {
-  siteName?: string;
-  hotline?: string;
-  address?: string;
-  seoDefaultTitle?: string;
-  seoDefaultDescription?: string;
+export type SiteSettings = {
+  id: number;
+  globalDisclaimerEnabled: boolean;
+  globalDisclaimerText: string | null;
+  homeBannerTitle: string | null;
+  homeBannerSubtitle: string | null;
+  homeBannerImageId: string | null;
+  updatedAt: string;
 };
 
 export type PaginatedResponse<T> = {
@@ -112,8 +114,10 @@ export type AdminLead = {
 
 export type AdminLeadListResponse = PaginatedResponse<AdminLead>;
 
-export type AdminSettingsResponse = SettingsDto;
-export type AdminSettingsUpdateInput = SettingsDto;
+export type AdminSettingsResponse = SiteSettings;
+export type AdminSettingsUpdateInput = Partial<
+  Omit<SiteSettings, 'id' | 'updatedAt'>
+>;
 
 export type AdminMeResponse = {
   id: string;

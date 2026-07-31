@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { adminApi } from '@/lib/adminApi';
 import type {
@@ -9,73 +9,45 @@ import type {
   Category,
   PublishStatus,
 } from '@/types';
+import {
+  Button,
+  buttonVariants,
+  FunnelIcon,
+  MagnifyingGlassIcon,
+  Pagination,
+  PencilSquareIcon,
+  PlusIcon,
+  StatusBadge,
+  Table,
+  TableBody,
+  TableCard,
+  TableCheckbox,
+  TableEmptyRow,
+  TableError,
+  TableHead,
+  TableLoading,
+  TableRow,
+  TableScroll,
+  TrashIcon,
+  useConfirm,
+  useToast,
+} from '@/components/admin';
 
-function PlusIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      className={className}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M12 4.5v15m7.5-7.5h-15"
-      />
-    </svg>
-  );
-}
-
-function FunnelIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      className={className}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"
-      />
-    </svg>
-  );
-}
-
-function MagnifyingGlassIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      className={className}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-      />
-    </svg>
-  );
-}
+type BulkAction = 'delete' | 'publish' | 'unpublish';
 
 export function ContentsPage() {
   const sp = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  const toast = useToast();
+  const confirmAction = useConfirm();
 
   const [data, setData] = useState<AdminContentListResponse | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [bulkAction, setBulkAction] = useState<BulkAction | null>(null);
 
   // Search params
   const categoryId = sp.get('categoryId') ?? '';
@@ -106,7 +78,7 @@ export function ContentsPage() {
     return q;
   }, [categoryId, status, page, pageSize, search]);
 
-  useEffect(() => {
+  const loadContents = useCallback(() => {
     let cancelled = false;
     setLoading(true);
     setError(null);
@@ -127,6 +99,92 @@ export function ContentsPage() {
       cancelled = true;
     };
   }, [queryParams]);
+
+  useEffect(() => {
+    return loadContents();
+  }, [loadContents]);
+
+  useEffect(() => {
+    setSelectedIds(new Set());
+  }, [data]);
+
+  const allSelected =
+    !!data &&
+    data.items.length > 0 &&
+    data.items.every((i) => selectedIds.has(i.id));
+  const someSelected = !!data && data.items.some((i) => selectedIds.has(i.id));
+
+  const toggleAll = (checked: boolean) => {
+    setSelectedIds(checked ? new Set(data?.items.map((i) => i.id)) : new Set());
+  };
+
+  const toggleOne = (id: string, checked: boolean) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (checked) next.add(id);
+      else next.delete(id);
+      return next;
+    });
+  };
+
+  const BULK_FN: Record<BulkAction, (id: string) => Promise<unknown>> = {
+    delete: adminApi.deleteContent,
+    publish: adminApi.publishContent,
+    unpublish: adminApi.unpublishContent,
+  };
+  const BULK_VERB: Record<BulkAction, string> = {
+    delete: 'xóa',
+    publish: 'xuất bản',
+    unpublish: 'gỡ',
+  };
+  const BULK_CONFIRM_MESSAGE: Record<BulkAction, (count: number) => string> = {
+    delete: (n) =>
+      `Xóa ${n} bài viết đã chọn? Hành động này không thể hoàn tác.`,
+    publish: (n) => `Xuất bản ${n} bài viết đã chọn?`,
+    unpublish: (n) => `Gỡ ${n} bài viết đã chọn?`,
+  };
+
+  async function runBulk(action: BulkAction) {
+    const ids = Array.from(selectedIds);
+    if (ids.length === 0) return;
+
+    const ok = await confirmAction(BULK_CONFIRM_MESSAGE[action](ids.length), {
+      danger: action === 'delete' || action === 'unpublish',
+      confirmLabel: action === 'delete' ? 'Xóa' : undefined,
+    });
+    if (!ok) return;
+
+    setBulkAction(action);
+    const results = await Promise.allSettled(
+      ids.map((id) => BULK_FN[action](id)),
+    );
+    const succeeded = results.filter((r) => r.status === 'fulfilled').length;
+    const failed = results.length - succeeded;
+    setBulkAction(null);
+    setSelectedIds(new Set());
+    loadContents();
+    toast.show(
+      failed === 0
+        ? `Đã ${BULK_VERB[action]} ${succeeded}/${results.length} mục`
+        : `Đã ${BULK_VERB[action]} ${succeeded}/${results.length} mục, ${failed} lỗi`,
+      failed === 0 ? 'success' : 'error',
+    );
+  }
+
+  const handleDelete = async (id: string) => {
+    const ok = await confirmAction(
+      'Bạn có chắc chắn muốn xóa bài viết này? Hành động này không thể hoàn tác.',
+      { danger: true, confirmLabel: 'Xóa' },
+    );
+    if (!ok) return;
+    try {
+      await adminApi.deleteContent(id);
+      toast.show('Đã xóa bài viết');
+      loadContents();
+    } catch (e) {
+      toast.show(e instanceof Error ? e.message : 'Xóa thất bại', 'error');
+    }
+  };
 
   const handleFilter = (key: string, value: string) => {
     const newParams = new URLSearchParams(queryParams.toString());
@@ -150,6 +208,13 @@ export function ContentsPage() {
     router.push(`${pathname}?${newParams.toString()}`);
   };
 
+  const handlePageSizeChange = (newSize: number) => {
+    const newParams = new URLSearchParams(queryParams.toString());
+    newParams.set('pageSize', newSize.toString());
+    newParams.set('page', '1');
+    router.push(`${pathname}?${newParams.toString()}`);
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -164,12 +229,50 @@ export function ContentsPage() {
         </div>
         <Link
           href="/admin/contents/new"
-          className="inline-flex items-center gap-2 rounded-lg bg-[#E75739] px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-[#D1492E] focus:outline-none focus:ring-2 focus:ring-[#E75739] focus:ring-offset-2"
+          className={buttonVariants({ variant: 'primary' })}
         >
           <PlusIcon className="h-5 w-5" />
           Tạo bài viết mới
         </Link>
       </div>
+
+      {/* Bulk actions toolbar */}
+      {selectedIds.size > 0 && (
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-admin-border bg-admin-cream px-4 py-3">
+          <span className="text-sm font-medium text-[#4D0000]">
+            {selectedIds.size} mục đã chọn
+          </span>
+          <div className="flex flex-wrap gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              loading={bulkAction === 'publish'}
+              disabled={bulkAction !== null && bulkAction !== 'publish'}
+              onClick={() => runBulk('publish')}
+            >
+              Xuất bản đã chọn
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              loading={bulkAction === 'unpublish'}
+              disabled={bulkAction !== null && bulkAction !== 'unpublish'}
+              onClick={() => runBulk('unpublish')}
+            >
+              Gỡ đã chọn
+            </Button>
+            <Button
+              variant="danger"
+              size="sm"
+              loading={bulkAction === 'delete'}
+              disabled={bulkAction !== null && bulkAction !== 'delete'}
+              onClick={() => runBulk('delete')}
+            >
+              Xóa đã chọn
+            </Button>
+          </div>
+        </div>
+      )}
 
       {/* Filters */}
       <div className="rounded-xl border border-[#E5E1DA] bg-white p-4 shadow-sm">
@@ -227,24 +330,24 @@ export function ContentsPage() {
       </div>
 
       {/* Content Table */}
-      <div className="overflow-hidden rounded-xl border border-[#E5E1DA] bg-white shadow-sm">
-        {loading && !data && (
-          <div className="p-8 text-center text-stone-500">
-            Đang tải dữ liệu...
-          </div>
-        )}
+      <TableCard>
+        {loading && !data && <TableLoading />}
 
-        {error && (
-          <div className="bg-red-50 p-4 text-center text-sm text-red-600">
-            Lỗi tải dữ liệu: {error}
-          </div>
-        )}
+        {error && <TableError message={error} />}
 
         {!loading && !error && data && (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-[#4D0000]/90 text-[#FFF9A7]">
+          <TableScroll>
+            <Table>
+              <TableHead>
                 <tr>
+                  <th className="w-10 px-4 py-3">
+                    <TableCheckbox
+                      checked={allSelected}
+                      indeterminate={someSelected && !allSelected}
+                      onChange={toggleAll}
+                      ariaLabel="Chọn tất cả"
+                    />
+                  </th>
                   <th className="whitespace-nowrap px-6 py-3 font-semibold">
                     Tiêu đề
                   </th>
@@ -261,23 +364,22 @@ export function ContentsPage() {
                     Thao tác
                   </th>
                 </tr>
-              </thead>
-              <tbody className="divide-y divide-stone-100">
+              </TableHead>
+              <TableBody>
                 {data.items.length === 0 ? (
-                  <tr>
-                    <td
-                      colSpan={5}
-                      className="px-6 py-8 text-center text-stone-500"
-                    >
-                      Không tìm thấy bài viết nào.
-                    </td>
-                  </tr>
+                  <TableEmptyRow colSpan={6}>
+                    Không tìm thấy bài viết nào.
+                  </TableEmptyRow>
                 ) : (
                   data.items.map((item) => (
-                    <tr
-                      key={item.id}
-                      className="group transition-colors hover:bg-stone-50"
-                    >
+                    <TableRow key={item.id}>
+                      <td className="px-4 py-4">
+                        <TableCheckbox
+                          checked={selectedIds.has(item.id)}
+                          onChange={(checked) => toggleOne(item.id, checked)}
+                          ariaLabel={`Chọn ${item.title}`}
+                        />
+                      </td>
                       <td className="px-6 py-4">
                         <Link
                           href={`/admin/contents/${item.id}`}
@@ -306,78 +408,43 @@ export function ContentsPage() {
                         ).toLocaleDateString('vi-VN')}
                       </td>
                       <td className="px-6 py-4 text-right">
-                        <Link
-                          href={`/admin/contents/${item.id}`}
-                          className="text-stone-400 hover:text-[#4D0000]"
-                        >
-                          Sửa
-                        </Link>
+                        <div className="flex items-center justify-end gap-2">
+                          <Link
+                            href={`/admin/contents/${item.id}`}
+                            className={buttonVariants({ variant: 'ghost' })}
+                            title="Sửa"
+                          >
+                            <PencilSquareIcon className="h-5 w-5" />
+                          </Link>
+                          <Button
+                            variant="ghost"
+                            className="hover:bg-red-50 hover:text-red-600"
+                            onClick={() => handleDelete(item.id)}
+                            title="Xóa"
+                          >
+                            <TrashIcon className="h-5 w-5" />
+                          </Button>
+                        </div>
                       </td>
-                    </tr>
+                    </TableRow>
                   ))
                 )}
-              </tbody>
-            </table>
-          </div>
+              </TableBody>
+            </Table>
+          </TableScroll>
         )}
 
         {/* Pagination */}
         {data && (
-          <div className="flex items-center justify-between border-t border-stone-100 bg-stone-50 px-6 py-4">
-            <span className="text-sm text-stone-600">
-              Hiển thị{' '}
-              <span className="font-medium">
-                {data.items.length === 0 ? 0 : (page - 1) * pageSize + 1}
-              </span>{' '}
-              đến{' '}
-              <span className="font-medium">
-                {data.items.length === 0
-                  ? 0
-                  : (page - 1) * pageSize + data.items.length}
-              </span>{' '}
-              trong số <span className="font-medium">{data.total}</span> kết quả
-            </span>
-            <div className="flex items-center gap-2">
-              <button
-                disabled={page <= 1}
-                onClick={() => handlePageChange(page - 1)}
-                className="rounded border border-stone-300 bg-white px-3 py-1 text-sm text-stone-600 hover:bg-stone-50 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                Trước
-              </button>
-              <button
-                disabled={page * pageSize >= data.total}
-                onClick={() => handlePageChange(page + 1)}
-                className="rounded border border-stone-300 bg-white px-3 py-1 text-sm text-stone-600 hover:bg-stone-50 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                Sau
-              </button>
-            </div>
-          </div>
+          <Pagination
+            page={page}
+            pageSize={pageSize}
+            total={data.total}
+            onPageChange={handlePageChange}
+            onPageSizeChange={handlePageSizeChange}
+          />
         )}
-      </div>
+      </TableCard>
     </div>
-  );
-}
-
-function StatusBadge({ status }: { status: PublishStatus }) {
-  if (status === 'PUBLISHED') {
-    return (
-      <span className="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-        Xuất bản
-      </span>
-    );
-  }
-  if (status === 'DRAFT') {
-    return (
-      <span className="inline-flex items-center rounded-full bg-yellow-50 px-2.5 py-0.5 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">
-        Nháp
-      </span>
-    );
-  }
-  return (
-    <span className="inline-flex items-center rounded-full bg-stone-100 px-2.5 py-0.5 text-xs font-medium text-stone-600 ring-1 ring-inset ring-stone-500/10">
-      {status}
-    </span>
   );
 }

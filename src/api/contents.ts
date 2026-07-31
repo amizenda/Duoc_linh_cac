@@ -51,3 +51,9 @@ export const unpublishContent = (id: string): Promise<AdminContentResponse> => {
     },
   );
 };
+
+export const deleteContent = (id: string): Promise<{ ok: true }> => {
+  return adminFetch<{ ok: true }>(`/api/admin/contents/${id}`, {
+    method: 'DELETE',
+  });
+};

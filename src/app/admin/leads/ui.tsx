@@ -1,28 +1,27 @@
 'use client';
 
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { adminApi } from '@/lib/adminApi';
 import type { AdminLead, AdminLeadListResponse } from '@/types';
-
-function UserIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      className={className}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-      />
-    </svg>
-  );
-}
+import {
+  Button,
+  buttonVariants,
+  EyeIcon,
+  FunnelIcon,
+  MagnifyingGlassIcon,
+  Pagination,
+  Table,
+  TableBody,
+  TableCard,
+  TableEmptyRow,
+  TableError,
+  TableHead,
+  TableLoading,
+  TableRow,
+  TableScroll,
+  UserIcon,
+} from '@/components/admin';
 
 function LeadDetailModal({
   lead,
@@ -93,12 +92,9 @@ function LeadDetailModal({
           </div>
         </div>
         <div className="bg-stone-50 px-6 py-4 flex justify-end rounded-b-lg">
-          <button
-            onClick={onClose}
-            className="rounded-md bg-white border border-stone-200 px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50 shadow-sm transition-colors"
-          >
+          <Button variant="outline" onClick={onClose}>
             Đóng
-          </button>
+          </Button>
         </div>
       </div>
     </div>
@@ -106,20 +102,45 @@ function LeadDetailModal({
 }
 
 export function LeadsPage() {
+  const sp = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
   const [data, setData] = useState<AdminLeadListResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [selectedLead, setSelectedLead] = useState<AdminLead | null>(null);
-  const [page, setPage] = useState(1);
-  const pageSize = 5;
+  const [exporting, setExporting] = useState(false);
+
+  const page = parseInt(sp.get('page') ?? '1', 10);
+  const pageSize = parseInt(sp.get('pageSize') ?? '5', 10);
+  const search = sp.get('q') ?? '';
+  const from = sp.get('from') ?? '';
+  const to = sp.get('to') ?? '';
+
+  const [searchTerm, setSearchTerm] = useState(search);
 
   useEffect(() => {
+    setSearchTerm(search);
+  }, [search]);
+
+  const queryParams = useMemo(() => {
+    const q = new URLSearchParams();
+    if (search) q.set('q', search);
+    if (from) q.set('from', from);
+    if (to) q.set('to', to);
+    q.set('page', page.toString());
+    q.set('pageSize', pageSize.toString());
+    return q;
+  }, [search, from, to, page, pageSize]);
+
+  const loadLeads = useCallback(() => {
     let cancelled = false;
     setLoading(true);
     setError(null);
 
     adminApi
-      .listLeads(`?page=${page}&pageSize=${pageSize}`)
+      .listLeads(`?${queryParams.toString()}`)
       .then((res) => {
         if (!cancelled) setData(res);
       })
@@ -133,7 +154,53 @@ export function LeadsPage() {
     return () => {
       cancelled = true;
     };
-  }, [page]);
+  }, [queryParams]);
+
+  useEffect(() => {
+    return loadLeads();
+  }, [loadLeads]);
+
+  const handleFilter = (key: string, value: string) => {
+    const newParams = new URLSearchParams(queryParams.toString());
+    if (value) {
+      newParams.set(key, value);
+    } else {
+      newParams.delete(key);
+    }
+    newParams.set('page', '1');
+    router.push(`${pathname}?${newParams.toString()}`);
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleFilter('q', searchTerm);
+  };
+
+  const handlePageChange = (newPage: number) => {
+    const newParams = new URLSearchParams(queryParams.toString());
+    newParams.set('page', newPage.toString());
+    router.push(`${pathname}?${newParams.toString()}`);
+  };
+
+  const handlePageSizeChange = (newSize: number) => {
+    const newParams = new URLSearchParams(queryParams.toString());
+    newParams.set('pageSize', newSize.toString());
+    newParams.set('page', '1');
+    router.push(`${pathname}?${newParams.toString()}`);
+  };
+
+  const exportHref = (() => {
+    const p = new URLSearchParams();
+    if (from) p.set('from', from);
+    if (to) p.set('to', to);
+    const qs = p.toString();
+    return `/api/admin/leads/export${qs ? `?${qs}` : ''}`;
+  })();
+
+  function handleExportClick() {
+    setExporting(true);
+    window.setTimeout(() => setExporting(false), 2500);
+  }
 
   return (
     <div className="space-y-6">
@@ -146,76 +213,136 @@ export function LeadsPage() {
             Khách hàng quan tâm và để lại thông tin.
           </p>
         </div>
-        <Link
-          href="/api/admin/leads/export"
-          className="inline-flex items-center gap-2 rounded-lg border border-[#E5E1DA] bg-white px-4 py-2 text-sm font-medium text-stone-700 shadow-sm transition-colors hover:bg-stone-50"
+        <a
+          href={exportHref}
+          onClick={handleExportClick}
+          className={`${buttonVariants({ variant: 'outline' })} ${
+            exporting ? 'pointer-events-none opacity-60' : ''
+          }`}
         >
-          <svg
-            className="h-4 w-4 text-stone-500"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-            ></path>
-          </svg>
-          Xuất Excel
-        </Link>
+          {exporting ? (
+            <svg
+              className="h-4 w-4 animate-spin text-stone-500"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              />
+            </svg>
+          ) : (
+            <svg
+              className="h-4 w-4 text-stone-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+              ></path>
+            </svg>
+          )}
+          {exporting ? 'Đang xuất...' : 'Xuất Excel'}
+        </a>
       </div>
 
-      <div className="overflow-hidden rounded-xl border border-[#E5E1DA] bg-white shadow-sm">
-        {loading && !data && (
-          <div className="p-8 text-center text-stone-500">
-            Đang tải dữ liệu...
+      {/* Filters */}
+      <div className="rounded-xl border border-[#E5E1DA] bg-white p-4 shadow-sm">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="flex items-center gap-2 text-stone-500">
+              <FunnelIcon className="h-5 w-5" />
+              <span className="text-sm font-medium">Bộ lọc:</span>
+            </div>
+            <label className="flex items-center gap-1.5 text-sm text-stone-600">
+              Từ ngày
+              <input
+                type="date"
+                value={from}
+                onChange={(e) => handleFilter('from', e.target.value)}
+                className="rounded-lg border-stone-200 py-1.5 text-sm focus:border-[#4D0000] focus:ring-[#4D0000]"
+              />
+            </label>
+            <label className="flex items-center gap-1.5 text-sm text-stone-600">
+              Đến ngày
+              <input
+                type="date"
+                value={to}
+                onChange={(e) => handleFilter('to', e.target.value)}
+                className="rounded-lg border-stone-200 py-1.5 text-sm focus:border-[#4D0000] focus:ring-[#4D0000]"
+              />
+            </label>
           </div>
-        )}
 
-        {error && (
-          <div className="bg-red-50 p-4 text-center text-sm text-red-600">
-            Lỗi tải dữ liệu: {error}
-          </div>
-        )}
+          <form
+            onSubmit={handleSearchSubmit}
+            className="relative w-full max-w-sm"
+          >
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <MagnifyingGlassIcon className="h-5 w-5 text-stone-400" />
+            </div>
+            <input
+              type="search"
+              placeholder="Tìm theo tên, SĐT, email..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="block w-full rounded-lg border-stone-200 py-1.5 pl-10 text-sm focus:border-[#4D0000] focus:ring-[#4D0000]"
+            />
+          </form>
+        </div>
+      </div>
+
+      <TableCard>
+        {loading && !data && <TableLoading />}
+
+        {error && <TableError message={error} />}
 
         {!loading && !error && data && (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-[#4D0000]/90 text-[#FFF9A7]">
+          <TableScroll>
+            <Table>
+              <TableHead>
                 <tr>
-                  <th className="whitespace-nowrap px-6 py-3 font-semibold w-[25%]">
+                  <th className="whitespace-nowrap px-6 py-3 font-semibold w-[22%]">
                     Tên khách hàng
                   </th>
-                  <th className="whitespace-nowrap px-6 py-3 font-semibold w-[25%]">
+                  <th className="whitespace-nowrap px-6 py-3 font-semibold w-[23%]">
                     Liên hệ
                   </th>
-                  <th className="whitespace-nowrap px-6 py-3 font-semibold w-[35%]">
+                  <th className="whitespace-nowrap px-6 py-3 font-semibold w-[30%]">
                     Nội dung tư vấn
                   </th>
                   <th className="whitespace-nowrap px-6 py-3 font-semibold w-[15%]">
                     Thời gian
                   </th>
+                  <th className="whitespace-nowrap px-6 py-3 font-semibold text-right w-[10%]">
+                    Thao tác
+                  </th>
                 </tr>
-              </thead>
-              <tbody className="divide-y divide-stone-100">
+              </TableHead>
+              <TableBody>
                 {data.items.length === 0 ? (
-                  <tr>
-                    <td
-                      colSpan={4}
-                      className="px-6 py-8 text-center text-stone-500"
-                    >
-                      Chưa có leads nào.
-                    </td>
-                  </tr>
+                  <TableEmptyRow colSpan={5}>Chưa có leads nào.</TableEmptyRow>
                 ) : (
                   data.items.map((lead) => (
-                    <tr
+                    <TableRow
                       key={lead.id}
                       onClick={() => setSelectedLead(lead)}
-                      className="group cursor-pointer transition-colors hover:bg-stone-50"
+                      className="cursor-pointer"
                     >
                       <td className="px-6 py-4 align-top">
                         <div className="flex items-start gap-3">
@@ -258,48 +385,36 @@ export function LeadsPage() {
                           'vi-VN',
                         )}
                       </td>
-                    </tr>
+                      <td className="px-6 py-4 align-top text-right">
+                        <Button
+                          variant="ghost"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedLead(lead);
+                          }}
+                          title="Xem"
+                        >
+                          <EyeIcon className="h-5 w-5" />
+                        </Button>
+                      </td>
+                    </TableRow>
                   ))
                 )}
-              </tbody>
-            </table>
-          </div>
+              </TableBody>
+            </Table>
+          </TableScroll>
         )}
 
         {data && (
-          <div className="flex items-center justify-between border-t border-stone-100 bg-stone-50 px-6 py-4">
-            <span className="text-sm text-stone-600">
-              Hiển thị{' '}
-              <span className="font-medium">
-                {data.items.length === 0 ? 0 : (page - 1) * pageSize + 1}
-              </span>{' '}
-              đến{' '}
-              <span className="font-medium">
-                {data.items.length === 0
-                  ? 0
-                  : (page - 1) * pageSize + data.items.length}
-              </span>{' '}
-              trong số <span className="font-medium">{data.total}</span> kết quả
-            </span>
-            <div className="flex items-center gap-2">
-              <button
-                disabled={page <= 1}
-                onClick={() => setPage((p) => p - 1)}
-                className="rounded border border-stone-300 bg-white px-3 py-1 text-sm text-stone-600 hover:bg-stone-50 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                Trước
-              </button>
-              <button
-                disabled={page * pageSize >= data.total}
-                onClick={() => setPage((p) => p + 1)}
-                className="rounded border border-stone-300 bg-white px-3 py-1 text-sm text-stone-600 hover:bg-stone-50 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                Sau
-              </button>
-            </div>
-          </div>
+          <Pagination
+            page={page}
+            pageSize={pageSize}
+            total={data.total}
+            onPageChange={handlePageChange}
+            onPageSizeChange={handlePageSizeChange}
+          />
         )}
-      </div>
+      </TableCard>
 
       {selectedLead && (
         <LeadDetailModal

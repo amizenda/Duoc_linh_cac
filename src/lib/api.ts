@@ -5,7 +5,7 @@ import type {
   ContentSummary,
   LeadPayload,
   PaginatedResponse,
-  SettingsDto,
+  SiteSettings,
 } from '@/types';
 
 type PublicHomeResponse = {
@@ -21,7 +21,7 @@ type PublicHomeResponse = {
     subtitle: string | null;
     imageId: string | null;
   };
-  settings?: SettingsDto;
+  settings?: SiteSettings;
 };
 
 function getApiBase(): string | null {

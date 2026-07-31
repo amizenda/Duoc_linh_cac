@@ -4,6 +4,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AdminActions } from './ui';
+import { ConfirmProvider, ToastProvider } from '@/components/admin';
 
 type NavItem = { label: string; href: string; icon: string };
 type NavSection = { title?: string; items: NavItem[] };
@@ -170,7 +171,9 @@ export function AdminShell({ children }: { children: ReactNode }) {
         {/* Main Content */}
         <main className="flex-1 p-8 overflow-y-auto">
           <div className="max-w-5xl mx-auto animate-in fade-in duration-500">
-            {children}
+            <ToastProvider>
+              <ConfirmProvider>{children}</ConfirmProvider>
+            </ToastProvider>
           </div>
         </main>
       </div>

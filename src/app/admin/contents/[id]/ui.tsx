@@ -9,31 +9,28 @@ import type {
 } from '@/types';
 import { useRouter } from 'next/navigation';
 import TiptapEditor from '@/components/TiptapEditor';
-
-function ArrowLeftIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={className}
-    >
-      <path
-        fillRule="evenodd"
-        d="M11.03 3.97a.75.75 0 010 1.06l-6.22 6.22H21a.75.75 0 010 1.5H4.81l6.22 6.22a.75.75 0 11-1.06 1.06l-7.5-7.5a.75.75 0 010-1.06l7.5-7.5a.75.75 0 011.06 0z"
-        clipRule="evenodd"
-      />
-    </svg>
-  );
-}
+import {
+  ArrowLeftIcon,
+  Button,
+  useConfirm,
+  useToast,
+  XMarkIcon,
+} from '@/components/admin';
 
 export function ContentEditor({ id }: { id: string }) {
   const router = useRouter();
+  const toast = useToast();
+  const confirmAction = useConfirm();
   const [data, setData] = useState<AdminContentResponse | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<{
+    title?: string;
+    slug?: string;
+    categoryId?: string;
+  }>({});
 
   // Form states
   const [title, setTitle] = useState('');
@@ -49,6 +46,26 @@ export function ContentEditor({ id }: { id: string }) {
   const [authorId, setAuthorId] = useState('');
   const [metaTitle, setMetaTitle] = useState('');
   const [metaDescription, setMetaDescription] = useState('');
+
+  const [pendingFile, setPendingFile] = useState<File | null>(null);
+  const [pendingPreviewUrl, setPendingPreviewUrl] = useState('');
+  const [isDragging, setIsDragging] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      if (pendingPreviewUrl) URL.revokeObjectURL(pendingPreviewUrl);
+    };
+  }, [pendingPreviewUrl]);
+
+  function handleFileSelected(file: File) {
+    if (file.size > 5 * 1024 * 1024) {
+      toast.show('File quá lớn (>5MB)', 'error');
+      return;
+    }
+    if (pendingPreviewUrl) URL.revokeObjectURL(pendingPreviewUrl);
+    setPendingFile(file);
+    setPendingPreviewUrl(URL.createObjectURL(file));
+  }
 
   useEffect(() => {
     let mounted = true;
@@ -91,17 +108,46 @@ export function ContentEditor({ id }: { id: string }) {
     };
   }, [id]);
 
+  function validateFields() {
+    const errs: { title?: string; slug?: string; categoryId?: string } = {};
+    if (!title.trim()) errs.title = 'Vui lòng nhập tiêu đề';
+    if (!slug.trim()) errs.slug = 'Vui lòng nhập slug';
+    if (!categoryId) errs.categoryId = 'Vui lòng chọn chuyên mục';
+    return errs;
+  }
+
   const handleSave = async () => {
+    const errs = validateFields();
+    setFieldErrors(errs);
+    if (Object.keys(errs).length > 0) return;
+
     setSubmitting(true);
     setError(null);
     try {
+      let finalCoverImageId = coverImageId;
+      if (pendingFile) {
+        const formData = new FormData();
+        formData.append('file', pendingFile);
+        const res = (await adminApi.uploadMedia(formData)) as {
+          id: string;
+          url: string;
+        };
+        if (!res?.id) throw new Error('Upload succeeded but no ID returned');
+        finalCoverImageId = res.id;
+        setCoverImageId(res.id);
+        setCoverImageUrl(res.url);
+        URL.revokeObjectURL(pendingPreviewUrl);
+        setPendingFile(null);
+        setPendingPreviewUrl('');
+      }
+
       const payload: AdminContentUpdateInput = {
         title,
         slug,
         html,
         excerpt,
         categoryId,
-        coverImageId: coverImageId || null,
+        coverImageId: finalCoverImageId || null,
         coverAlt: coverAlt || null,
         publishedAt: publishedAt ? new Date(publishedAt).toISOString() : null,
         createdById: authorId || null,
@@ -110,12 +156,11 @@ export function ContentEditor({ id }: { id: string }) {
         metaDescription,
       };
 
-      console.log('Updating with payload:', payload);
       const updated = await adminApi.updateContent(id, payload);
       setData(updated);
-      alert('Đã cập nhật thành công!'); // Simple feedback for now
+      toast.show('Đã cập nhật thành công!');
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Update failed');
+      toast.show(e instanceof Error ? e.message : 'Update failed', 'error');
     } finally {
       setSubmitting(false);
     }
@@ -132,33 +177,60 @@ export function ContentEditor({ id }: { id: string }) {
     if (!metaDescription) missing.push('Meta Description');
 
     if (missing.length > 0) {
-      setError(`Không thể xuất bản. Thiếu thông tin: ${missing.join(', ')}`);
+      toast.show(
+        `Không thể xuất bản. Thiếu thông tin: ${missing.join(', ')}`,
+        'error',
+      );
       return;
     }
 
-    if (!confirm('Bạn có chắc chắn muốn xuất bản nội dung này?')) return;
+    const ok = await confirmAction(
+      'Bạn có chắc chắn muốn xuất bản nội dung này?',
+    );
+    if (!ok) return;
     setSubmitting(true);
-    setError(null);
     try {
       const published = await adminApi.publishContent(id);
       setData(published);
+      toast.show('Đã xuất bản bài viết');
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Publish failed');
+      toast.show(e instanceof Error ? e.message : 'Publish failed', 'error');
     } finally {
       setSubmitting(false);
     }
   };
 
   const handleUnpublish = async () => {
-    if (!confirm('Gỡ bỏ nội dung cập nhật khỏi website?')) return;
+    const ok = await confirmAction('Gỡ bỏ nội dung cập nhật khỏi website?', {
+      danger: true,
+      confirmLabel: 'Gỡ bài',
+    });
+    if (!ok) return;
     setSubmitting(true);
-    setError(null);
     try {
       const unpublished = await adminApi.unpublishContent(id);
       setData(unpublished);
+      toast.show('Đã gỡ bài viết');
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Unpublish failed');
+      toast.show(e instanceof Error ? e.message : 'Unpublish failed', 'error');
     } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    const ok = await confirmAction(
+      'Bạn có chắc chắn muốn xóa bài viết này? Hành động này không thể hoàn tác.',
+      { danger: true, confirmLabel: 'Xóa' },
+    );
+    if (!ok) return;
+    setSubmitting(true);
+    try {
+      await adminApi.deleteContent(id);
+      toast.show('Đã xóa bài viết');
+      router.push('/admin/contents');
+    } catch (e) {
+      toast.show(e instanceof Error ? e.message : 'Xóa thất bại', 'error');
       setSubmitting(false);
     }
   };
@@ -214,31 +286,30 @@ export function ContentEditor({ id }: { id: string }) {
         </div>
 
         <div className="flex items-center gap-3">
+          <Button variant="danger" onClick={handleDelete} disabled={submitting}>
+            Xóa bài viết
+          </Button>
           {data.status === 'PUBLISHED' ? (
-            <button
+            <Button
+              variant="danger"
               onClick={handleUnpublish}
               disabled={submitting}
-              className="rounded-lg border border-red-200 bg-red-50 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-100 disabled:opacity-50"
             >
               Gỡ bài
-            </button>
+            </Button>
           ) : (
-            <button
+            <Button
+              variant="secondary"
               onClick={handlePublish}
               disabled={submitting}
-              className="rounded-lg bg-[#4D0000]/90 px-4 py-2 text-sm font-medium text-[#FFF9A7] shadow-sm hover:bg-[#3A0000] disabled:opacity-50"
             >
               Xuất bản
-            </button>
+            </Button>
           )}
 
-          <button
-            onClick={handleSave}
-            disabled={submitting}
-            className="rounded-lg bg-[#E75739] px-6 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#D1492E] disabled:opacity-50"
-          >
-            {submitting ? 'Đang lưu...' : 'Lưu thay đổi'}
-          </button>
+          <Button onClick={handleSave} loading={submitting}>
+            Lưu thay đổi
+          </Button>
         </div>
       </div>
 
@@ -252,9 +323,19 @@ export function ContentEditor({ id }: { id: string }) {
               </label>
               <input
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                className="w-full rounded-lg border-stone-200 px-4 py-2.5 text-lg font-semibold focus:border-[#4D0000] focus:ring-[#4D0000]"
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                  setFieldErrors((p) => ({ ...p, title: undefined }));
+                }}
+                className={`w-full rounded-lg px-4 py-2.5 text-lg font-semibold ${
+                  fieldErrors.title
+                    ? 'border-red-400 focus:border-red-500 focus:ring-red-500'
+                    : 'border-stone-200 focus:border-[#4D0000] focus:ring-[#4D0000]'
+                }`}
               />
+              {fieldErrors.title && (
+                <p className="text-xs text-red-600">{fieldErrors.title}</p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -319,8 +400,15 @@ export function ContentEditor({ id }: { id: string }) {
               <select
                 required
                 value={categoryId}
-                onChange={(e) => setCategoryId(e.target.value)}
-                className="w-full rounded-lg border-stone-200 bg-white py-2 text-sm text-stone-700 focus:border-[#4D0000] focus:ring-[#4D0000]"
+                onChange={(e) => {
+                  setCategoryId(e.target.value);
+                  setFieldErrors((p) => ({ ...p, categoryId: undefined }));
+                }}
+                className={`w-full rounded-lg bg-white py-2 text-sm text-stone-700 ${
+                  fieldErrors.categoryId
+                    ? 'border-red-400 focus:border-red-500 focus:ring-red-500'
+                    : 'border-stone-200 focus:border-[#4D0000] focus:ring-[#4D0000]'
+                }`}
               >
                 <option value="">Chọn chuyên mục</option>
                 {categories.map((c) => (
@@ -329,6 +417,9 @@ export function ContentEditor({ id }: { id: string }) {
                   </option>
                 ))}
               </select>
+              {fieldErrors.categoryId && (
+                <p className="text-xs text-red-600">{fieldErrors.categoryId}</p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -337,9 +428,19 @@ export function ContentEditor({ id }: { id: string }) {
               </label>
               <input
                 value={slug}
-                onChange={(e) => setSlug(e.target.value)}
-                className="w-full rounded-lg border-stone-200 py-2 text-sm text-stone-600 focus:border-[#4D0000] focus:ring-[#4D0000]"
+                onChange={(e) => {
+                  setSlug(e.target.value);
+                  setFieldErrors((p) => ({ ...p, slug: undefined }));
+                }}
+                className={`w-full rounded-lg py-2 text-sm text-stone-600 ${
+                  fieldErrors.slug
+                    ? 'border-red-400 focus:border-red-500 focus:ring-red-500'
+                    : 'border-stone-200 focus:border-[#4D0000] focus:ring-[#4D0000]'
+                }`}
               />
+              {fieldErrors.slug && (
+                <p className="text-xs text-red-600">{fieldErrors.slug}</p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -348,14 +449,21 @@ export function ContentEditor({ id }: { id: string }) {
               </label>
 
               <div className="flex flex-col gap-3">
-                {/* Preview Image if ID exists */}
-                {coverImageId && (
+                {/* Preview: ảnh đang chờ upload ưu tiên hơn ảnh đã lưu */}
+                {(pendingPreviewUrl || coverImageId) && (
                   <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-stone-200 bg-stone-50">
                     <div className="flex items-center justify-center h-full text-xs text-stone-400">
-                      {coverImageUrl || coverImageId.startsWith('http') ? (
+                      {pendingPreviewUrl ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
-                          src={coverImageUrl || coverImageId}
+                          src={pendingPreviewUrl}
+                          alt="Preview"
+                          className="w-full h-full object-cover"
+                        />
+                      ) : coverImageUrl ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={coverImageUrl}
                           alt="Preview"
                           className="w-full h-full object-cover"
                         />
@@ -363,22 +471,26 @@ export function ContentEditor({ id }: { id: string }) {
                     </div>
                     <button
                       onClick={() => {
-                        setCoverImageId('');
-                        setCoverImageUrl('');
+                        if (pendingPreviewUrl) {
+                          URL.revokeObjectURL(pendingPreviewUrl);
+                          setPendingFile(null);
+                          setPendingPreviewUrl('');
+                        } else {
+                          setCoverImageId('');
+                          setCoverImageUrl('');
+                        }
                       }}
                       className="absolute top-2 right-2 p-1 bg-white/80 rounded-full hover:bg-white text-red-600"
                       title="Xóa ảnh"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        className="w-4 h-4"
-                      >
-                        <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-                      </svg>
+                      <XMarkIcon className="w-4 h-4" />
                     </button>
                   </div>
+                )}
+                {pendingPreviewUrl && (
+                  <p className="text-xs text-stone-500 italic">
+                    Ảnh sẽ được tải lên khi bạn lưu.
+                  </p>
                 )}
 
                 <div className="flex gap-2">
@@ -387,45 +499,29 @@ export function ContentEditor({ id }: { id: string }) {
                     id="thumbnail-upload"
                     className="hidden"
                     accept="image/*"
-                    onChange={async (e) => {
+                    onChange={(e) => {
                       const file = e.target.files?.[0];
-                      if (!file) return;
-
-                      try {
-                        // Simple local check
-                        if (file.size > 5 * 1024 * 1024)
-                          throw new Error('File quá lớn (>5MB)');
-
-                        const formData = new FormData();
-                        formData.append('file', file);
-
-                        // Assuming upload returns { id, url }
-                        // We need to cast because current api return type is unknown
-                        const res = (await adminApi.uploadMedia(formData)) as {
-                          id: string;
-                          url: string;
-                        };
-
-                        if (res?.id) {
-                          setCoverImageId(res.id);
-                          setCoverImageUrl(res.url);
-                        } else {
-                          throw new Error(
-                            'Upload succeeded but no ID returned',
-                          );
-                        }
-                      } catch (err: unknown) {
-                        if (err instanceof Error) {
-                          alert(err.message || 'Upload failed');
-                        } else {
-                          alert('Upload failed');
-                        }
-                      }
+                      if (file) handleFileSelected(file);
                     }}
                   />
                   <label
                     htmlFor="thumbnail-upload"
-                    className="flex-1 cursor-pointer rounded-lg border border-dashed border-stone-300 px-4 py-3 text-center text-sm text-stone-600 hover:border-[#4D0000] hover:bg-stone-50 transition-colors"
+                    onDragOver={(e) => {
+                      e.preventDefault();
+                      setIsDragging(true);
+                    }}
+                    onDragLeave={() => setIsDragging(false)}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      setIsDragging(false);
+                      const file = e.dataTransfer.files?.[0];
+                      if (file) handleFileSelected(file);
+                    }}
+                    className={`flex-1 cursor-pointer rounded-lg border border-dashed px-4 py-3 text-center text-sm transition-colors ${
+                      isDragging
+                        ? 'border-[#4D0000] bg-stone-50 text-stone-700'
+                        : 'border-stone-300 text-stone-600 hover:border-[#4D0000] hover:bg-stone-50'
+                    }`}
                   >
                     <span className="font-medium text-[#4D0000]">
                       Tải ảnh lên
@@ -436,18 +532,6 @@ export function ContentEditor({ id }: { id: string }) {
                     </p>
                   </label>
                 </div>
-
-                {/* <div className="relative">
-                  <input
-                    value={coverImageId}
-                    onChange={(e) => {
-                      setCoverImageId(e.target.value);
-                      if (!e.target.value.startsWith('http')) setCoverImageUrl('');
-                    }}
-                    placeholder="Hoặc nhập ID / URL ảnh..."
-                    className="w-full rounded-lg border-stone-200 py-2 pl-3 pr-10 text-xs text-stone-500 font-mono focus:border-[#4D0000] focus:ring-[#4D0000]"
-                  />
-                </div> */}
 
                 <div className="space-y-1">
                   <label className="text-xs font-medium text-stone-700">
@@ -502,9 +586,6 @@ export function ContentEditor({ id }: { id: string }) {
 
           {/* Simple meta info display */}
           <div className="rounded-xl border border-[#E5E1DA] bg-white p-5 shadow-sm space-y-2 text-xs text-stone-500">
-            {/* <p>
-              <strong>ID:</strong> {data.id}
-            </p> */}
             <p>
               <strong>Ngày tạo:</strong>{' '}
               {new Date(data.createdAt || Date.now()).toLocaleString()}
@@ -518,15 +599,6 @@ export function ContentEditor({ id }: { id: string }) {
           </div>
         </div>
       </div>
-
-      {error && (
-        <div className="fixed bottom-4 right-4 max-w-sm rounded-lg bg-red-100 p-4 text-sm text-red-800 shadow-lg border border-red-200 animate-in slide-in-from-bottom-2">
-          <strong>Lỗi:</strong> {error}
-          <button onClick={() => setError(null)} className="ml-2 underline">
-            Đóng
-          </button>
-        </div>
-      )}
     </div>
   );
 }

@@ -5,9 +5,11 @@ import type { AdminContentCreateInput, Category } from '@/types';
 import { adminApi } from '@/lib/adminApi';
 import { useRouter } from 'next/navigation';
 import TiptapEditor from '@/components/TiptapEditor';
+import { Button, useToast, XMarkIcon } from '@/components/admin';
 
 export function NewContentForm() {
   const router = useRouter();
+  const toast = useToast();
 
   // Form states
   const [categoryId, setCategoryId] = useState('');
@@ -27,6 +29,31 @@ export function NewContentForm() {
   const [authorName, setAuthorName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<{
+    title?: string;
+    slug?: string;
+    categoryId?: string;
+  }>({});
+
+  const [pendingFile, setPendingFile] = useState<File | null>(null);
+  const [pendingPreviewUrl, setPendingPreviewUrl] = useState('');
+  const [isDragging, setIsDragging] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      if (pendingPreviewUrl) URL.revokeObjectURL(pendingPreviewUrl);
+    };
+  }, [pendingPreviewUrl]);
+
+  function handleFileSelected(file: File) {
+    if (file.size > 5 * 1024 * 1024) {
+      toast.show('File quá lớn (>5MB)', 'error');
+      return;
+    }
+    if (pendingPreviewUrl) URL.revokeObjectURL(pendingPreviewUrl);
+    setPendingFile(file);
+    setPendingPreviewUrl(URL.createObjectURL(file));
+  }
 
   useEffect(() => {
     adminApi
@@ -52,28 +79,48 @@ export function NewContentForm() {
     }
   };
 
+  function validateFields() {
+    const errs: { title?: string; slug?: string; categoryId?: string } = {};
+    if (!title.trim()) errs.title = 'Vui lòng nhập tiêu đề';
+    if (!slug.trim()) errs.slug = 'Vui lòng nhập slug';
+    if (!categoryId) errs.categoryId = 'Vui lòng chọn chuyên mục';
+    return errs;
+  }
+
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!title) {
-      setError('Vui lòng nhập tiêu đề');
-      return;
-    }
-    if (!categoryId) {
-      setError('Vui lòng chọn chuyên mục');
-      return;
-    }
+    const errs = validateFields();
+    setFieldErrors(errs);
+    if (Object.keys(errs).length > 0) return;
 
     setError(null);
     setLoading(true);
 
     try {
+      let finalCoverImageId = coverImageId;
+      if (pendingFile) {
+        const formData = new FormData();
+        formData.append('file', pendingFile);
+        const res = (await adminApi.uploadMedia(formData)) as {
+          id: string;
+          url: string;
+        };
+        if (!res?.id) throw new Error('Upload succeeded but no ID returned');
+        finalCoverImageId = res.id;
+        setCoverImageId(res.id);
+        setCoverImageUrl(res.url);
+        URL.revokeObjectURL(pendingPreviewUrl);
+        setPendingFile(null);
+        setPendingPreviewUrl('');
+      }
+
       const payload: AdminContentCreateInput = {
         categoryId,
         title,
         slug,
         html: html || '<p>Nội dung mới...</p>',
         excerpt,
-        coverImageId: coverImageId || undefined,
+        coverImageId: finalCoverImageId || undefined,
         coverAlt: coverAlt || undefined,
         publishedAt: publishedAt
           ? new Date(publishedAt).toISOString()
@@ -83,13 +130,11 @@ export function NewContentForm() {
         metaTitle,
         metaDescription,
       };
-      console.log('Creating content with payload:', payload);
-      const res = await adminApi.createContent(payload);
-      console.log('Create content response:', res);
       // API returns the created object directly on success, NOT { ok: true }
+      const res = await adminApi.createContent(payload);
+      toast.show('Đã tạo bài viết mới');
       router.push(`/admin/contents/${res.id}`);
     } catch (err: unknown) {
-      console.error(err);
       setError(err instanceof Error ? err.message : 'Create failed');
       setLoading(false);
     }
@@ -107,19 +152,12 @@ export function NewContentForm() {
         </div>
 
         <div className="flex items-center gap-3">
-          <button
-            onClick={() => router.back()}
-            className="rounded-lg border border-stone-200 bg-white px-5 py-2.5 text-sm font-medium text-stone-600 hover:bg-stone-50 hover:text-stone-900"
-          >
+          <Button variant="outline" onClick={() => router.back()}>
             Hủy bỏ
-          </button>
-          <button
-            onClick={onSubmit}
-            disabled={loading}
-            className="inline-flex items-center gap-2 rounded-lg bg-[#E75739] px-6 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-[#D1492E] disabled:opacity-50"
-          >
-            {loading ? 'Đang xử lý...' : 'Tạo bài viết'}
-          </button>
+          </Button>
+          <Button onClick={onSubmit} loading={loading}>
+            Tạo bài viết
+          </Button>
         </div>
       </div>
 
@@ -134,10 +172,20 @@ export function NewContentForm() {
               <input
                 required
                 value={title}
-                onChange={(e) => handleTitleChange(e.target.value)}
+                onChange={(e) => {
+                  handleTitleChange(e.target.value);
+                  setFieldErrors((p) => ({ ...p, title: undefined }));
+                }}
                 placeholder="Nhập tiêu đề..."
-                className="w-full rounded-lg border-stone-200 px-4 py-2.5 text-lg font-semibold focus:border-[#4D0000] focus:ring-[#4D0000]"
+                className={`w-full rounded-lg px-4 py-2.5 text-lg font-semibold ${
+                  fieldErrors.title
+                    ? 'border-red-400 focus:border-red-500 focus:ring-red-500'
+                    : 'border-stone-200 focus:border-[#4D0000] focus:ring-[#4D0000]'
+                }`}
               />
+              {fieldErrors.title && (
+                <p className="text-xs text-red-600">{fieldErrors.title}</p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -204,8 +252,15 @@ export function NewContentForm() {
               <select
                 required
                 value={categoryId}
-                onChange={(e) => setCategoryId(e.target.value)}
-                className="w-full rounded-lg border-stone-200 bg-white py-2 text-sm text-stone-700 focus:border-[#4D0000] focus:ring-[#4D0000]"
+                onChange={(e) => {
+                  setCategoryId(e.target.value);
+                  setFieldErrors((p) => ({ ...p, categoryId: undefined }));
+                }}
+                className={`w-full rounded-lg bg-white py-2 text-sm text-stone-700 ${
+                  fieldErrors.categoryId
+                    ? 'border-red-400 focus:border-red-500 focus:ring-red-500'
+                    : 'border-stone-200 focus:border-[#4D0000] focus:ring-[#4D0000]'
+                }`}
               >
                 <option value="">Chọn chuyên mục</option>
                 {categories?.map((c) => (
@@ -214,6 +269,9 @@ export function NewContentForm() {
                   </option>
                 ))}
               </select>
+              {fieldErrors.categoryId && (
+                <p className="text-xs text-red-600">{fieldErrors.categoryId}</p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -222,9 +280,19 @@ export function NewContentForm() {
               </label>
               <input
                 value={slug}
-                onChange={(e) => setSlug(e.target.value)}
-                className="w-full rounded-lg border-stone-200 py-2 text-sm text-stone-600 focus:border-[#4D0000] focus:ring-[#4D0000]"
+                onChange={(e) => {
+                  setSlug(e.target.value);
+                  setFieldErrors((p) => ({ ...p, slug: undefined }));
+                }}
+                className={`w-full rounded-lg py-2 text-sm text-stone-600 ${
+                  fieldErrors.slug
+                    ? 'border-red-400 focus:border-red-500 focus:ring-red-500'
+                    : 'border-stone-200 focus:border-[#4D0000] focus:ring-[#4D0000]'
+                }`}
               />
+              {fieldErrors.slug && (
+                <p className="text-xs text-red-600">{fieldErrors.slug}</p>
+              )}
             </div>
 
             <div className="space-y-4">
@@ -233,14 +301,21 @@ export function NewContentForm() {
               </label>
 
               <div className="flex flex-col gap-3">
-                {/* Preview Image if ID exists */}
-                {coverImageId && (
+                {/* Preview: ảnh đang chờ upload ưu tiên hơn ảnh đã lưu */}
+                {(pendingPreviewUrl || coverImageId) && (
                   <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-stone-200 bg-stone-50">
                     <div className="flex items-center justify-center h-full text-xs text-stone-400">
-                      {coverImageUrl || coverImageId.startsWith('http') ? (
+                      {pendingPreviewUrl ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
-                          src={coverImageUrl || coverImageId}
+                          src={pendingPreviewUrl}
+                          alt="Preview"
+                          className="w-full h-full object-cover"
+                        />
+                      ) : coverImageUrl ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={coverImageUrl}
                           alt="Preview"
                           className="w-full h-full object-cover"
                         />
@@ -248,22 +323,26 @@ export function NewContentForm() {
                     </div>
                     <button
                       onClick={() => {
-                        setCoverImageId('');
-                        setCoverImageUrl('');
+                        if (pendingPreviewUrl) {
+                          URL.revokeObjectURL(pendingPreviewUrl);
+                          setPendingFile(null);
+                          setPendingPreviewUrl('');
+                        } else {
+                          setCoverImageId('');
+                          setCoverImageUrl('');
+                        }
                       }}
                       className="absolute top-2 right-2 p-1 bg-white/80 rounded-full hover:bg-white text-red-600"
                       title="Xóa ảnh"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        className="w-4 h-4"
-                      >
-                        <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-                      </svg>
+                      <XMarkIcon className="w-4 h-4" />
                     </button>
                   </div>
+                )}
+                {pendingPreviewUrl && (
+                  <p className="text-xs text-stone-500 italic">
+                    Ảnh sẽ được tải lên khi bạn lưu.
+                  </p>
                 )}
 
                 <div className="flex gap-2">
@@ -272,45 +351,29 @@ export function NewContentForm() {
                     id="thumbnail-upload"
                     className="hidden"
                     accept="image/*"
-                    onChange={async (e) => {
+                    onChange={(e) => {
                       const file = e.target.files?.[0];
-                      if (!file) return;
-
-                      try {
-                        // Simple local check
-                        if (file.size > 5 * 1024 * 1024)
-                          throw new Error('File quá lớn (>5MB)');
-
-                        const formData = new FormData();
-                        formData.append('file', file);
-
-                        // Assuming upload returns { id, url }
-                        // We need to cast because current api return type is unknown
-                        const res = (await adminApi.uploadMedia(formData)) as {
-                          id: string;
-                          url: string;
-                        };
-
-                        if (res?.id) {
-                          setCoverImageId(res.id);
-                          setCoverImageUrl(res.url);
-                        } else {
-                          throw new Error(
-                            'Upload succeeded but no ID returned',
-                          );
-                        }
-                      } catch (err: unknown) {
-                        if (err instanceof Error) {
-                          alert(err.message || 'Upload failed');
-                        } else {
-                          alert('Upload failed');
-                        }
-                      }
+                      if (file) handleFileSelected(file);
                     }}
                   />
                   <label
                     htmlFor="thumbnail-upload"
-                    className="flex-1 cursor-pointer rounded-lg border border-dashed border-stone-300 px-4 py-3 text-center text-sm text-stone-600 hover:border-[#4D0000] hover:bg-stone-50 transition-colors"
+                    onDragOver={(e) => {
+                      e.preventDefault();
+                      setIsDragging(true);
+                    }}
+                    onDragLeave={() => setIsDragging(false)}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      setIsDragging(false);
+                      const file = e.dataTransfer.files?.[0];
+                      if (file) handleFileSelected(file);
+                    }}
+                    className={`flex-1 cursor-pointer rounded-lg border border-dashed px-4 py-3 text-center text-sm transition-colors ${
+                      isDragging
+                        ? 'border-[#4D0000] bg-stone-50 text-stone-700'
+                        : 'border-stone-300 text-stone-600 hover:border-[#4D0000] hover:bg-stone-50'
+                    }`}
                   >
                     <span className="font-medium text-[#4D0000]">
                       Tải ảnh lên
@@ -321,19 +384,6 @@ export function NewContentForm() {
                     </p>
                   </label>
                 </div>
-
-                {/* <div className="relative">
-                  <input
-                    value={coverImageId}
-                    onChange={(e) => {
-                      setCoverImageId(e.target.value);
-                      if (!e.target.value.startsWith('http'))
-                        setCoverImageUrl('');
-                    }}
-                    placeholder="Hoặc nhập ID / URL ảnh..."
-                    className="w-full rounded-lg border-stone-200 py-2 pl-3 pr-10 text-xs text-stone-500 font-mono focus:border-[#4D0000] focus:ring-[#4D0000]"
-                  />
-                </div> */}
 
                 <div className="space-y-1">
                   <label className="text-xs font-medium text-stone-700">
