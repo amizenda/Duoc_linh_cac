@@ -10,6 +10,8 @@ import dvuPattern2 from '@/assets/patterns/dvu-pattern-2.png';
 import dvuPattern3 from '@/assets/patterns/dvu-pattern-3.png';
 import dvuPattern4 from '@/assets/patterns/dvu-pattern-4.png';
 import localFont from 'next/font/local';
+import { Reveal, ScrollPaper } from '@/components';
+
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
@@ -109,40 +111,46 @@ export default function ServiceListPage() {
             <div className="flex flex-col md:block w-full items-center gap-6 md:gap-0">
               {/* Image */}
               <div className="relative md:absolute md:top-[540px] w-[60%] max-w-[443px] aspect-[443/571] md:left-1/2 md:-translate-x-[519px]">
-                <Image
-                  src={dvuPattern1}
-                  alt="Dvu Pattern 1"
-                  fill
-                  className="object-contain"
-                  priority
-                />
+                <Reveal dir="left" width="w-full" className="h-full">
+                  <Image
+                    src={dvuPattern1}
+                    alt="Dvu Pattern 1"
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </Reveal>
               </div>
 
               {/* Text */}
-              <div
-                className={`relative md:absolute z-0 ${beVietnamPro.className} md:top-[660px] w-full max-w-[539px] md:h-[357px] md:left-1/2 md:translate-x-[16px] text-[#FFE7B6] flex items-center text-justify text-[12px] md:text-[16.68px] leading-[1.5] md:leading-[21px] font-normal`}
-              >
-                <div>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.&quot;
-                  <br />
-                  <br />
-                  Section 1.10.32 of &quot;de Finibus Bonorum et Malorum&quot;,
-                  written by Cicero in 45 BC
-                  <br />
-                  &quot;Sed ut perspiciatis unde omnis iste natus error sit
-                  voluptatem accusantium doloremque laudantium, totam rem
-                  aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                  architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
-                  voluptatem quia voluptas sit aspernatur aut odit aut fugit,
-                  sed quia consequuntur magni dolores eos qu
-                </div>
+              <div className="relative md:absolute z-0 md:top-[660px] w-full max-w-[539px] md:h-[357px] md:left-1/2 md:translate-x-[16px] flex items-center">
+                <Reveal dir="right" delay={150} width="w-full">
+                  <ScrollPaper>
+                    <div
+                      className={`${beVietnamPro.className} text-[#5A3410] text-justify text-[12px] md:text-[15px] leading-[1.6] md:leading-[1.6] font-normal`}
+                    >
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                      Duis aute irure dolor in reprehenderit in voluptate velit
+                      esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                      sint occaecat cupidatat non proident, sunt in culpa qui
+                      officia deserunt mollit anim id est laborum.&quot;
+                      <br />
+                      <br />
+                      Section 1.10.32 of &quot;de Finibus Bonorum et
+                      Malorum&quot;, written by Cicero in 45 BC
+                      <br />
+                      &quot;Sed ut perspiciatis unde omnis iste natus error sit
+                      voluptatem accusantium doloremque laudantium, totam rem
+                      aperiam, eaque ipsa quae ab illo inventore veritatis et
+                      quasi architecto beatae vitae dicta sunt explicabo. Nemo
+                      enim ipsam voluptatem quia voluptas sit aspernatur aut
+                      odit aut fugit, sed quia consequuntur magni dolores eos qu
+                    </div>
+                  </ScrollPaper>
+                </Reveal>
               </div>
             </div>
           </div>
@@ -170,40 +178,46 @@ export default function ServiceListPage() {
             <div className="flex flex-col md:block w-full items-center gap-6 md:gap-0">
               {/* Image (Mobile Order 2) */}
               <div className="relative md:absolute md:top-[1365px] w-[60%] max-w-[443px] aspect-[443/481] md:left-1/2 md:translate-x-[74px] md:order-none">
-                <Image
-                  src={dvuPattern2}
-                  alt="Dvu Pattern 2"
-                  fill
-                  className="object-contain"
-                  priority
-                />
+                <Reveal dir="right" width="w-full" className="h-full">
+                  <Image
+                    src={dvuPattern2}
+                    alt="Dvu Pattern 2"
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </Reveal>
               </div>
 
               {/* Text (Mobile Order 3) */}
-              <div
-                className={`relative md:absolute z-0 ${beVietnamPro.className} md:top-[1440px] w-full max-w-[539px] md:h-[357px] md:left-1/2 md:-translate-x-[509px] text-[#FFE7B6] flex items-center text-justify text-[12px] md:text-[16.68px] leading-[1.5] md:leading-[21px] font-normal md:order-none`}
-              >
-                <div>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.&quot;
-                  <br />
-                  <br />
-                  Section 1.10.32 of &quot;de Finibus Bonorum et Malorum&quot;,
-                  written by Cicero in 45 BC
-                  <br />
-                  &quot;Sed ut perspiciatis unde omnis iste natus error sit
-                  voluptatem accusantium doloremque laudantium, totam rem
-                  aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                  architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
-                  voluptatem quia voluptas sit aspernatur aut odit aut fugit,
-                  sed quia consequuntur magni dolores eos qu
-                </div>
+              <div className="relative md:absolute z-0 md:top-[1440px] w-full max-w-[539px] md:h-[357px] md:left-1/2 md:-translate-x-[509px] flex items-center md:order-none">
+                <Reveal dir="left" delay={150} width="w-full">
+                  <ScrollPaper>
+                    <div
+                      className={`${beVietnamPro.className} text-[#5A3410] text-justify text-[12px] md:text-[15px] leading-[1.6] md:leading-[1.6] font-normal`}
+                    >
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                      Duis aute irure dolor in reprehenderit in voluptate velit
+                      esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                      sint occaecat cupidatat non proident, sunt in culpa qui
+                      officia deserunt mollit anim id est laborum.&quot;
+                      <br />
+                      <br />
+                      Section 1.10.32 of &quot;de Finibus Bonorum et
+                      Malorum&quot;, written by Cicero in 45 BC
+                      <br />
+                      &quot;Sed ut perspiciatis unde omnis iste natus error sit
+                      voluptatem accusantium doloremque laudantium, totam rem
+                      aperiam, eaque ipsa quae ab illo inventore veritatis et
+                      quasi architecto beatae vitae dicta sunt explicabo. Nemo
+                      enim ipsam voluptatem quia voluptas sit aspernatur aut
+                      odit aut fugit, sed quia consequuntur magni dolores eos qu
+                    </div>
+                  </ScrollPaper>
+                </Reveal>
               </div>
             </div>
           </div>
@@ -231,40 +245,46 @@ export default function ServiceListPage() {
             <div className="flex flex-col md:block w-full items-center gap-6 md:gap-0">
               {/* Image */}
               <div className="relative md:absolute md:top-[2092px] w-[60%] max-w-[443px] aspect-[443/566] md:left-1/2 md:-translate-x-[516px]">
-                <Image
-                  src={dvuPattern3}
-                  alt="Dvu Pattern 3"
-                  fill
-                  className="object-contain"
-                  priority
-                />
+                <Reveal dir="left" width="w-full" className="h-full">
+                  <Image
+                    src={dvuPattern3}
+                    alt="Dvu Pattern 3"
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </Reveal>
               </div>
 
               {/* Text */}
-              <div
-                className={`relative md:absolute z-0 ${beVietnamPro.className} md:top-[2213px] w-full max-w-[539px] md:h-[357px] md:left-1/2 md:translate-x-[16px] text-[#FFE7B6] flex items-center text-justify text-[12px] md:text-[16.68px] leading-[1.5] md:leading-[21px] font-normal`}
-              >
-                <div>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.&quot;
-                  <br />
-                  <br />
-                  Section 1.10.32 of &quot;de Finibus Bonorum et Malorum&quot;,
-                  written by Cicero in 45 BC
-                  <br />
-                  &quot;Sed ut perspiciatis unde omnis iste natus error sit
-                  voluptatem accusantium doloremque laudantium, totam rem
-                  aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                  architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
-                  voluptatem quia voluptas sit aspernatur aut odit aut fugit,
-                  sed quia consequuntur magni dolores eos qu
-                </div>
+              <div className="relative md:absolute z-0 md:top-[2213px] w-full max-w-[539px] md:h-[357px] md:left-1/2 md:translate-x-[16px] flex items-center">
+                <Reveal dir="right" delay={150} width="w-full">
+                  <ScrollPaper>
+                    <div
+                      className={`${beVietnamPro.className} text-[#5A3410] text-justify text-[12px] md:text-[15px] leading-[1.6] md:leading-[1.6] font-normal`}
+                    >
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                      Duis aute irure dolor in reprehenderit in voluptate velit
+                      esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                      sint occaecat cupidatat non proident, sunt in culpa qui
+                      officia deserunt mollit anim id est laborum.&quot;
+                      <br />
+                      <br />
+                      Section 1.10.32 of &quot;de Finibus Bonorum et
+                      Malorum&quot;, written by Cicero in 45 BC
+                      <br />
+                      &quot;Sed ut perspiciatis unde omnis iste natus error sit
+                      voluptatem accusantium doloremque laudantium, totam rem
+                      aperiam, eaque ipsa quae ab illo inventore veritatis et
+                      quasi architecto beatae vitae dicta sunt explicabo. Nemo
+                      enim ipsam voluptatem quia voluptas sit aspernatur aut
+                      odit aut fugit, sed quia consequuntur magni dolores eos qu
+                    </div>
+                  </ScrollPaper>
+                </Reveal>
               </div>
             </div>
           </div>
@@ -292,40 +312,46 @@ export default function ServiceListPage() {
             <div className="flex flex-col md:block w-full items-center gap-6 md:gap-0">
               {/* Image (Mobile Order 2) */}
               <div className="relative md:absolute md:top-[2869px] w-[60%] max-w-[443px] aspect-[443/481] md:left-1/2 md:translate-x-[74px] md:order-none">
-                <Image
-                  src={dvuPattern4}
-                  alt="Dvu Pattern 4"
-                  fill
-                  className="object-contain"
-                  priority
-                />
+                <Reveal dir="right" width="w-full" className="h-full">
+                  <Image
+                    src={dvuPattern4}
+                    alt="Dvu Pattern 4"
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </Reveal>
               </div>
 
               {/* Text (Mobile Order 3) */}
-              <div
-                className={`relative md:absolute z-0 ${beVietnamPro.className} md:top-[2954px] w-full max-w-[539px] md:h-[357px] md:left-1/2 md:-translate-x-[509px] text-[#FFE7B6] flex items-center text-justify text-[12px] md:text-[16.68px] leading-[1.5] md:leading-[21px] font-normal md:order-none`}
-              >
-                <div>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.&quot;
-                  <br />
-                  <br />
-                  Section 1.10.32 of &quot;de Finibus Bonorum et Malorum&quot;,
-                  written by Cicero in 45 BC
-                  <br />
-                  &quot;Sed ut perspiciatis unde omnis iste natus error sit
-                  voluptatem accusantium doloremque laudantium, totam rem
-                  aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                  architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
-                  voluptatem quia voluptas sit aspernatur aut odit aut fugit,
-                  sed quia consequuntur magni dolores eos qu
-                </div>
+              <div className="relative md:absolute z-0 md:top-[2954px] w-full max-w-[539px] md:h-[357px] md:left-1/2 md:-translate-x-[509px] flex items-center md:order-none">
+                <Reveal dir="left" delay={150} width="w-full">
+                  <ScrollPaper>
+                    <div
+                      className={`${beVietnamPro.className} text-[#5A3410] text-justify text-[12px] md:text-[15px] leading-[1.6] md:leading-[1.6] font-normal`}
+                    >
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                      Duis aute irure dolor in reprehenderit in voluptate velit
+                      esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                      sint occaecat cupidatat non proident, sunt in culpa qui
+                      officia deserunt mollit anim id est laborum.&quot;
+                      <br />
+                      <br />
+                      Section 1.10.32 of &quot;de Finibus Bonorum et
+                      Malorum&quot;, written by Cicero in 45 BC
+                      <br />
+                      &quot;Sed ut perspiciatis unde omnis iste natus error sit
+                      voluptatem accusantium doloremque laudantium, totam rem
+                      aperiam, eaque ipsa quae ab illo inventore veritatis et
+                      quasi architecto beatae vitae dicta sunt explicabo. Nemo
+                      enim ipsam voluptatem quia voluptas sit aspernatur aut
+                      odit aut fugit, sed quia consequuntur magni dolores eos qu
+                    </div>
+                  </ScrollPaper>
+                </Reveal>
               </div>
             </div>
           </div>

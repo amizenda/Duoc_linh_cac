@@ -30,7 +30,7 @@ body {
   0% {
     background-position: 0% 0;
   }
-  45%,
+  70%,
   100% {
     background-position: 100% 0;
   }
@@ -53,5 +53,5 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: glow 3.4s ease-in-out infinite;
+  animation: glow 6s ease-in-out infinite;
 }

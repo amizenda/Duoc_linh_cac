@@ -56,7 +56,13 @@ function RibbonCap({ mirrored }: { mirrored?: boolean }) {
       aria-hidden="true"
     >
       <defs>
-        <linearGradient id={`ribbonGold-${mirrored ? 'r' : 'l'}`} x1="0" y1="0" x2="0" y2="1">
+        <linearGradient
+          id={`ribbonGold-${mirrored ? 'r' : 'l'}`}
+          x1="0"
+          y1="0"
+          x2="0"
+          y2="1"
+        >
           <stop offset="0%" stopColor="#FFE3A1" />
           <stop offset="100%" stopColor="#C98A00" />
         </linearGradient>
@@ -68,7 +74,14 @@ function RibbonCap({ mirrored }: { mirrored?: boolean }) {
         strokeWidth="1.5"
         strokeLinejoin="round"
       />
-      <circle cx="14" cy="30" r="4.5" fill="#E1362B" stroke="#7A0000" strokeWidth="1" />
+      <circle
+        cx="14"
+        cy="30"
+        r="4.5"
+        fill="#E1362B"
+        stroke="#7A0000"
+        strokeWidth="1"
+      />
     </svg>
   );
 }
@@ -148,7 +161,11 @@ export default async function DiseaseListPage() {
           </div>
 
           {/* Main Content Box */}
-          <div className="relative mt-4 md:mt-[60px] w-full max-w-[1167px]">
+          <Reveal
+            dir="up"
+            width="w-full"
+            className="relative mt-4 md:mt-[60px] max-w-[1167px] mx-auto"
+          >
             <div className="absolute inset-0 -z-10 w-full h-full">
               <Image
                 src={chungBenhBox}
@@ -160,13 +177,15 @@ export default async function DiseaseListPage() {
             </div>
 
             <div className="flex flex-col items-center justify-center px-6 py-12 md:px-[77px] md:py-[80px] text-center md:text-left">
-              <h2
-                className={`${bigShouldersDisplay.className} text-[#BA0B00] uppercase font-semibold mb-3 md:mb-6 text-center`}
-              >
-                <span className="text-[20px] md:text-[50px] lg:text-[60px] leading-tight">
-                  HỤT HƠI, THỞ NGẮN, VẬN ĐỘNG NHANH MỆT
-                </span>
-              </h2>
+              <Reveal delay={150}>
+                <h2
+                  className={`${bigShouldersDisplay.className} text-[#BA0B00] uppercase font-semibold mb-3 md:mb-6 text-center`}
+                >
+                  <span className="text-[20px] md:text-[50px] lg:text-[60px] leading-tight">
+                    HỤT HƠI, THỞ NGẮN, VẬN ĐỘNG NHANH MỆT
+                  </span>
+                </h2>
+              </Reveal>
 
               <div
                 className={`${beVietnamPro.className} text-[#690F0C] font-normal mb-4 md:mb-8 text-justify`}
@@ -237,7 +256,7 @@ export default async function DiseaseListPage() {
                 </span>
               </div>
             </div>
-          </div>
+          </Reveal>
 
           <div className="relative w-full max-w-[1200px] mt-[-20px] md:mt-[-50px] lg:mt-[-100px] md:mb-[-100px] h-[200px] md:h-[400px] lg:h-[675px] z-0">
             <Reveal width="w-full" className="h-full">

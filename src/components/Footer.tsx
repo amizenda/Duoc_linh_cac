@@ -15,10 +15,10 @@ const sairaStyle = { fontFamily: 'var(--font-saira)' };
 
 export function Footer() {
   return (
-    <footer className="relative w-full bg-[#FCF8EE]">
-      {/* Background frame - 9-slice border-image so the corner ornaments
-          never get cropped, regardless of the footer's aspect ratio
-          (browser zoom / text reflow changes footer height vs width). */}
+    <footer className="relative w-full bg-[#F9FFDC]">
+      {/* Border frame from the source image via 9-slice border-image, so
+          the corner ornaments stay proportional (not stretched into
+          streaks) regardless of the footer's aspect ratio on mobile. */}
       <div
         className="absolute inset-0 z-0 select-none pointer-events-none"
         style={{
@@ -31,10 +31,10 @@ export function Footer() {
         }}
       />
 
-      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 py-8 lg:px-10 lg:py-16">
-        <div className="grid grid-cols-1 gap-8 text-[#771010] lg:grid-cols-12 lg:gap-8">
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 py-8 md:px-10 md:py-12 lg:py-16">
+        <div className="grid grid-cols-1 gap-8 text-[#771010] md:grid-cols-12 md:gap-6 lg:gap-8">
           {/* Cột 1: Logo & Slogan */}
-          <div className="flex flex-col items-center lg:col-span-3 lg:items-center">
+          <div className="flex flex-col items-center md:col-span-3 md:items-start md:text-left">
             <div className="relative h-[100px] w-[50px] lg:h-[152px] lg:w-[77px]">
               <Image
                 src={logo}
@@ -45,7 +45,7 @@ export function Footer() {
             </div>
 
             <div
-              className="mt-4 text-center text-[14px] font-semibold uppercase leading-[1.2] tracking-[-0.03em] lg:mt-6 lg:text-[16.8px]"
+              className="mt-4 text-center text-[14px] font-semibold uppercase leading-[1.2] tracking-[-0.03em] md:text-left md:text-[13px] lg:mt-6 lg:text-[16.8px]"
               style={{
                 fontFamily: 'var(--font-big-shoulders-display)',
                 fontFeatureSettings: "'salt' on, 'kern' off",
@@ -59,9 +59,9 @@ export function Footer() {
           </div>
 
           {/* Cột 2 & 3: Về Chúng Tôi & Dịch Vụ - Song song trên Mobile */}
-          <div className="col-span-1 grid grid-cols-2 gap-4 lg:col-span-5 lg:gap-8 ml-8">
+          <div className="col-span-1 grid grid-cols-2 gap-4 md:col-span-5 md:gap-6 lg:gap-8">
             {/* Cột 2: Về Chúng Tôi */}
-            <div className="flex flex-col items-center text-left lg:items-start lg:text-left lg:pl-10">
+            <div className="flex flex-col items-center text-left md:items-start md:text-left">
               <h3
                 className="text-[14px] font-bold leading-[18px] lg:text-[18px] lg:leading-[20px]"
                 style={sairaStyle}
@@ -69,7 +69,7 @@ export function Footer() {
                 DƯỢC LINH CÁC
               </h3>
               <div
-                className="mt-4 space-y-2 text-[12px] leading-[18px] lg:mt-7 lg:space-y-3 lg:text-[16px] lg:leading-[21px]"
+                className="mt-4 space-y-2 text-[12px] leading-[18px] md:mt-5 md:space-y-2.5 lg:mt-7 lg:space-y-3 lg:text-[16px] lg:leading-[21px]"
                 style={sairaStyle}
               >
                 <Link href="/lien-he" className="block hover:underline">
@@ -88,7 +88,7 @@ export function Footer() {
             </div>
 
             {/* Cột 3: Dịch Vụ */}
-            <div className="flex flex-col item-center text-left lg:items-start lg:text-left">
+            <div className="flex flex-col item-center text-left md:items-start md:text-left">
               <h3
                 className="text-[14px] font-bold leading-[18px] lg:text-[18px] lg:leading-[20px]"
                 style={sairaStyle}
@@ -96,7 +96,7 @@ export function Footer() {
                 DỊCH VỤ
               </h3>
               <div
-                className="mt-4 space-y-2 text-[12px] leading-[18px] lg:mt-7 lg:space-y-3 lg:text-[16px] lg:leading-[21px]"
+                className="mt-4 space-y-2 text-[12px] leading-[18px] md:mt-5 md:space-y-2.5 lg:mt-7 lg:space-y-3 lg:text-[16px] lg:leading-[21px]"
                 style={sairaStyle}
               >
                 <Link href="/dich-vu" className="block hover:underline">
@@ -116,7 +116,7 @@ export function Footer() {
           </div>
 
           {/* Cột 4: Liên Hệ - Chiếm rộng nhất */}
-          <div className="flex flex-col items-center text-center lg:col-span-4 lg:items-start lg:text-left">
+          <div className="flex flex-col items-center text-center md:col-span-4 md:items-start md:text-left">
             <h3
               className="text-[14px] font-bold leading-[18px] lg:text-[18px] lg:leading-[20px]"
               style={sairaStyle}
@@ -124,7 +124,7 @@ export function Footer() {
               LIÊN HỆ
             </h3>
             <div
-              className={`${beVietnamPro.className} mt-4 space-y-2 text-[12px] font-medium leading-[18px] lg:mt-7 lg:space-y-3 lg:text-[15px] lg:leading-[20px]`}
+              className={`${beVietnamPro.className} mt-4 space-y-2 text-[12px] font-medium leading-[18px] md:mt-5 md:space-y-2.5 md:text-[13px] lg:mt-7 lg:space-y-3 lg:text-[15px] lg:leading-[20px]`}
             >
               <p className="uppercase">
                 Tư vấn:{' '}
