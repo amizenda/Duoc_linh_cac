@@ -1,6 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { Be_Vietnam_Pro } from 'next/font/google';
 import type { ContentSummary } from '@/types';
+
+const beVietnamPro = Be_Vietnam_Pro({
+  weight: ['400', '600', '700', '900'],
+  subsets: ['latin', 'vietnamese'],
+  display: 'swap',
+});
 
 type PostCardProps = {
   post: ContentSummary;
@@ -46,7 +53,9 @@ export function PostCard({
               : ''}
           </span>
         </div>
-        <h3 className="font-black uppercase text-[15px] lg:text-[16px] text-[#760000] leading-snug line-clamp-2 group-hover:underline">
+        <h3
+          className={`${beVietnamPro.className} font-black uppercase text-[15px] lg:text-[16px] text-[#760000] leading-snug line-clamp-2 group-hover:underline`}
+        >
           {post.title}
         </h3>
         <p className="text-[13px] text-[#760000]/80 leading-relaxed line-clamp-3 flex-1">

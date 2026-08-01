@@ -124,7 +124,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
 
       <div className="flex min-h-[calc(100vh-73px)]">
         {/* Desktop sidebar */}
-        <aside className="w-64 bg-admin-maroon/90 text-admin-gold hidden lg:block shrink-0 shadow-lg">
+        <aside className="w-64 bg-admin-maroon text-admin-gold hidden lg:block shrink-0 shadow-lg">
           <NavLinks />
         </aside>
 
@@ -137,7 +137,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
           />
         )}
         <aside
-          className={`fixed inset-y-0 left-0 z-50 w-72 bg-admin-maroon/95 text-admin-gold shadow-lg transform transition-transform duration-300 ease-in-out lg:hidden ${
+          className={`fixed inset-y-0 left-0 z-50 w-72 bg-admin-maroon text-admin-gold shadow-lg transform transition-transform duration-300 ease-in-out lg:hidden ${
             isOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >

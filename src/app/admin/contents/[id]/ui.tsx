@@ -116,6 +116,48 @@ export function ContentEditor({ id }: { id: string }) {
     return errs;
   }
 
+  // Upload ảnh đang chờ (nếu có) và lưu toàn bộ thay đổi hiện tại của form.
+  // Dùng chung cho cả "Lưu thay đổi" và "Xuất bản" — xuất bản luôn phải
+  // lưu trước để không publish nhầm dữ liệu cũ trong khi ảnh/nội dung mới
+  // vẫn còn nằm ở state form (pendingFile) chưa được gửi lên server.
+  const saveChanges = async () => {
+    let finalCoverImageId = coverImageId;
+    if (pendingFile) {
+      const formData = new FormData();
+      formData.append('file', pendingFile);
+      const res = (await adminApi.uploadMedia(formData)) as {
+        id: string;
+        url: string;
+      };
+      if (!res?.id) throw new Error('Upload succeeded but no ID returned');
+      finalCoverImageId = res.id;
+      setCoverImageId(res.id);
+      setCoverImageUrl(res.url);
+      URL.revokeObjectURL(pendingPreviewUrl);
+      setPendingFile(null);
+      setPendingPreviewUrl('');
+    }
+
+    const payload: AdminContentUpdateInput = {
+      title,
+      slug,
+      html,
+      excerpt,
+      categoryId,
+      coverImageId: finalCoverImageId || null,
+      coverAlt: coverAlt || null,
+      publishedAt: publishedAt ? new Date(publishedAt).toISOString() : null,
+      createdById: authorId || null,
+      authorName: authorName || null,
+      metaTitle,
+      metaDescription,
+    };
+
+    const updated = await adminApi.updateContent(id, payload);
+    setData(updated);
+    return updated;
+  };
+
   const handleSave = async () => {
     const errs = validateFields();
     setFieldErrors(errs);
@@ -124,40 +166,7 @@ export function ContentEditor({ id }: { id: string }) {
     setSubmitting(true);
     setError(null);
     try {
-      let finalCoverImageId = coverImageId;
-      if (pendingFile) {
-        const formData = new FormData();
-        formData.append('file', pendingFile);
-        const res = (await adminApi.uploadMedia(formData)) as {
-          id: string;
-          url: string;
-        };
-        if (!res?.id) throw new Error('Upload succeeded but no ID returned');
-        finalCoverImageId = res.id;
-        setCoverImageId(res.id);
-        setCoverImageUrl(res.url);
-        URL.revokeObjectURL(pendingPreviewUrl);
-        setPendingFile(null);
-        setPendingPreviewUrl('');
-      }
-
-      const payload: AdminContentUpdateInput = {
-        title,
-        slug,
-        html,
-        excerpt,
-        categoryId,
-        coverImageId: finalCoverImageId || null,
-        coverAlt: coverAlt || null,
-        publishedAt: publishedAt ? new Date(publishedAt).toISOString() : null,
-        createdById: authorId || null,
-        authorName: authorName || null,
-        metaTitle,
-        metaDescription,
-      };
-
-      const updated = await adminApi.updateContent(id, payload);
-      setData(updated);
+      await saveChanges();
       toast.show('Đã cập nhật thành công!');
     } catch (e) {
       toast.show(e instanceof Error ? e.message : 'Update failed', 'error');
@@ -167,29 +176,38 @@ export function ContentEditor({ id }: { id: string }) {
   };
 
   const handlePublish = async () => {
-    // Validate required fields for publishing
-    const missing = [];
-    if (!title) missing.push('Tiêu đề');
-    if (!slug) missing.push('Slug');
-    if (!coverImageId) missing.push('Ảnh Thumbnail');
-    if (!coverAlt) missing.push('Mô tả ảnh / Alt Text');
-    if (!metaTitle) missing.push('Meta Title');
-    if (!metaDescription) missing.push('Meta Description');
-
-    if (missing.length > 0) {
-      toast.show(
-        `Không thể xuất bản. Thiếu thông tin: ${missing.join(', ')}`,
-        'error',
-      );
-      return;
-    }
+    const errs = validateFields();
+    setFieldErrors(errs);
+    if (Object.keys(errs).length > 0) return;
 
     const ok = await confirmAction(
       'Bạn có chắc chắn muốn xuất bản nội dung này?',
     );
     if (!ok) return;
+
     setSubmitting(true);
+    setError(null);
     try {
+      // Lưu ảnh/nội dung đang chỉnh trước, để publish luôn dựa trên dữ
+      // liệu mới nhất thay vì bản đã lưu trước đó trong DB.
+      const saved = await saveChanges();
+
+      const missing = [];
+      if (!saved.title) missing.push('Tiêu đề');
+      if (!saved.slug) missing.push('Slug');
+      if (!saved.coverImageId) missing.push('Ảnh Thumbnail');
+      if (!saved.coverAlt) missing.push('Mô tả ảnh / Alt Text');
+      if (!saved.metaTitle) missing.push('Meta Title');
+      if (!saved.metaDescription) missing.push('Meta Description');
+
+      if (missing.length > 0) {
+        toast.show(
+          `Không thể xuất bản. Thiếu thông tin: ${missing.join(', ')}`,
+          'error',
+        );
+        return;
+      }
+
       const published = await adminApi.publishContent(id);
       setData(published);
       toast.show('Đã xuất bản bài viết');

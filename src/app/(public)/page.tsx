@@ -315,7 +315,7 @@ export default async function HomePage() {
                   {/* Title */}
                   <Reveal>
                     <h3
-                      className={`${bigShouldersDisplay.className} text-center uppercase w-full md:max-w-[386px] font-[600] text-[14px] lg:text-[40.6px] leading-[1.2] tracking-[-0.03em] text-[#B90407] mb-[16px] lg:mb-[64px]`}
+                      className={`${bigShouldersDisplay.className} text-center uppercase w-full max-w-[92%] sm:max-w-[80%] md:max-w-none md:whitespace-nowrap font-[600] text-[14px] sm:text-[17px] md:text-[24px] lg:text-[40.6px] leading-[1.2] tracking-[-0.03em] text-[#B90407] mb-[8px] sm:mb-[10px] md:mb-[16px] lg:mb-[64px]`}
                     >
                       Phương châm của dược linh các
                     </h3>
@@ -324,12 +324,12 @@ export default async function HomePage() {
                   {/* Slogan */}
                   <Reveal delay={200}>
                     <p
-                      className={`${bigShouldersDisplay.className} text-center uppercase w-full md:max-w-[380px] font-semibold text-[10px] lg:text-[26.85px] leading-[1.2] tracking-[-0.03em] text-[#B90407]`}
+                      className={`${bigShouldersDisplay.className} text-center uppercase w-full max-w-[92%] sm:max-w-none sm:whitespace-nowrap lg:max-w-[380px] font-semibold text-[10px] sm:text-[12px] md:text-[17px] lg:text-[26.85px] leading-[1.2] tracking-[-0.03em] text-[#B90407]`}
                       style={{
                         fontFeatureSettings: "'salt' on, 'kern' off",
                       }}
                     >
-                      “Thuận Theo Tự Nhiên – Thân Khỏe Tâm An
+                      “Thuận Theo Tự Nhiên – Thân Khỏe Tâm An
                       <br className="md:block" />
                       Nghiệp Chướng Tiêu Tan – Chân Mệnh Vững Bền"
                     </p>
