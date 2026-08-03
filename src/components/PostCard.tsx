@@ -62,8 +62,10 @@ export function PostCard({
           {post.excerpt || '...'}
         </p>
         <div className="mt-auto flex items-center justify-between pt-2 border-t border-[#760000]/10 text-[11px] text-[#760000]/70">
-          <span>Tác giả: {post.authorName || 'Ẩn danh'}</span>
-          <span className="font-bold text-[#760000] group-hover:underline">
+          <span className="text-[#ce2121]">
+            Tác giả: {post.authorName || 'Ẩn danh'}
+          </span>
+          <span className="font-bold text-[#ce2121] group-hover:underline">
             Đọc thêm →
           </span>
         </div>
