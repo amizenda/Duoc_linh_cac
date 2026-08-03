@@ -311,11 +311,11 @@ export default async function HomePage() {
                 />
 
                 {/* Box 4 Text Overlay */}
-                <div className="absolute inset-0 flex flex-col items-center md:justify-center pt-[5%] z-10 px-6 md:pt-4">
+                <div className="absolute inset-0 flex flex-col items-center md:justify-center pt-[5%] z-10 px-6 md:pt-[8%] lg:pt-4">
                   {/* Title */}
                   <Reveal>
                     <h3
-                      className={`${bigShouldersDisplay.className} text-center uppercase w-full max-w-[92%] sm:max-w-[80%] md:max-w-none md:whitespace-nowrap font-[600] text-[14px] sm:text-[17px] md:text-[24px] lg:text-[40.6px] leading-[1.2] tracking-[-0.03em] text-[#B90407] mb-[8px] sm:mb-[10px] md:mb-[16px] lg:mb-[64px]`}
+                      className={`${bigShouldersDisplay.className} text-center uppercase w-full whitespace-nowrap font-[600] text-[clamp(11px,4.2vw,24px)] lg:text-[40.6px] leading-[1.2] tracking-[-0.03em] text-[#B90407] mb-[8px] sm:mb-[10px] md:mb-[16px] lg:mb-[64px]`}
                     >
                       Phương châm của dược linh các
                     </h3>
@@ -324,13 +324,13 @@ export default async function HomePage() {
                   {/* Slogan */}
                   <Reveal delay={200}>
                     <p
-                      className={`${bigShouldersDisplay.className} text-center uppercase w-full max-w-[92%] sm:max-w-none sm:whitespace-nowrap lg:max-w-[380px] font-semibold text-[10px] sm:text-[12px] md:text-[17px] lg:text-[26.85px] leading-[1.2] tracking-[-0.03em] text-[#B90407]`}
+                      className={`${bigShouldersDisplay.className} text-center uppercase w-full whitespace-nowrap lg:max-w-[380px] font-semibold text-[clamp(8px,3.2vw,17px)] lg:text-[26.85px] leading-[1.2] tracking-[-0.03em] text-[#B90407]`}
                       style={{
                         fontFeatureSettings: "'salt' on, 'kern' off",
                       }}
                     >
                       “Thuận Theo Tự Nhiên – Thân Khỏe Tâm An
-                      <br className="md:block" />
+                      <br />
                       Nghiệp Chướng Tiêu Tan – Chân Mệnh Vững Bền"
                     </p>
                   </Reveal>
