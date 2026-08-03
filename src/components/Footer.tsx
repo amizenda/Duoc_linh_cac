@@ -23,10 +23,10 @@ export function Footer() {
         className="absolute inset-0 z-0 select-none pointer-events-none"
         style={{
           borderStyle: 'solid',
-          borderWidth: '28px',
+          borderWidth: '60px',
           borderImageSource: `url(${footerBackground.src})`,
           borderImageSlice: '160',
-          borderImageWidth: '28px',
+          borderImageWidth: '60px',
           borderImageRepeat: 'stretch',
         }}
       />
@@ -124,7 +124,7 @@ export function Footer() {
               LIÊN HỆ
             </h3>
             <div
-              className={`${beVietnamPro.className} mt-4 space-y-2 text-[12px] font-medium leading-[18px] md:mt-5 md:space-y-2.5 md:text-[13px] lg:mt-7 lg:space-y-3 lg:text-[15px] lg:leading-[20px]`}
+              className={`${beVietnamPro.className} mt-4 space-y-2 text-[12px] leading-[18px] md:mt-5 md:space-y-2.5 md:text-[13px] lg:mt-7 lg:space-y-3 lg:text-[15px] lg:leading-[20px]`}
             >
               <p className="uppercase">
                 Tư vấn:{' '}

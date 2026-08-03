@@ -13,7 +13,7 @@ import bigLine from '@/assets/line/big-line.png';
 import dvuPattern1 from '@/assets/patterns/dvu-pattern-1.png';
 import dvuPattern2 from '@/assets/patterns/dvu-pattern-2.png';
 import dvuPattern4 from '@/assets/patterns/dvu-pattern-4.png';
-import { JadeTablet, Reveal, ScrollPaper } from '@/components';
+import { Reveal, ScrollPaper } from '@/components';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
@@ -387,53 +387,53 @@ export default function HerbListPage() {
           {/* Text Block */}
           <div className="relative xl:absolute z-0 flex items-center xl:top-[3946px] w-[90%] xl:w-[1032px] xl:h-[440px] xl:left-1/2 xl:-translate-x-[516px]">
             <Reveal dir="up" width="w-full">
-              <JadeTablet>
-                <p
-                  className={`${beVietnamPro.className} text-[#F3ECC7] font-normal text-justify text-[10px] xl:text-[16.68px] leading-[1.5] xl:leading-[21px]`}
-                  style={{ textShadow: '0 1px 1px rgba(0,0,0,0.5)' }}
-                >
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.&quot;
-                  <br />
-                  <br />
-                  Section 1.10.32 of &quot;de Finibus Bonorum et Malorum&quot;,
-                  written by Cicero in 45 BC
-                  <br />
-                  &quot;Sed ut perspiciatis unde omnis iste natus error sit
-                  voluptatem accusantium doloremque laudantium, totam rem
-                  aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                  architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
-                  voluptatem quia voluptas sit aspernatur aut odit aut fugit,
-                  sed quia consequuntur magni dolores eos qu
-                  <br />
-                  <br />
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.&quot;
-                  <br />
-                  <br />
-                  Section 1.10.32 of &quot;de Finibus Bonorum et Malorum&quot;,
-                  written by Cicero in 45 BC
-                  <br />
-                  &quot;Sed ut perspiciatis unde omnis iste natus error sit
-                  voluptatem accusantium doloremque laudantium, totam rem
-                  aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                  architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
-                  voluptatem quia voluptas sit aspernatur aut odit aut fugit,
-                  sed quia consequuntur magni dolores eos qu
-                </p>
-              </JadeTablet>
+              {/* <JadeTablet> */}
+              <p
+                className={`${beVietnamPro.className} text-[#F3ECC7] font-normal text-justify text-[10px] xl:text-[16.68px] leading-[1.5] xl:leading-[21px]`}
+                style={{ textShadow: '0 1px 1px rgba(0,0,0,0.5)' }}
+              >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est
+                laborum.&quot;
+                <br />
+                <br />
+                Section 1.10.32 of &quot;de Finibus Bonorum et Malorum&quot;,
+                written by Cicero in 45 BC
+                <br />
+                &quot;Sed ut perspiciatis unde omnis iste natus error sit
+                voluptatem accusantium doloremque laudantium, totam rem aperiam,
+                eaque ipsa quae ab illo inventore veritatis et quasi architecto
+                beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
+                quia voluptas sit aspernatur aut odit aut fugit, sed quia
+                consequuntur magni dolores eos qu
+                <br />
+                <br />
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est
+                laborum.&quot;
+                <br />
+                <br />
+                Section 1.10.32 of &quot;de Finibus Bonorum et Malorum&quot;,
+                written by Cicero in 45 BC
+                <br />
+                &quot;Sed ut perspiciatis unde omnis iste natus error sit
+                voluptatem accusantium doloremque laudantium, totam rem aperiam,
+                eaque ipsa quae ab illo inventore veritatis et quasi architecto
+                beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
+                quia voluptas sit aspernatur aut odit aut fugit, sed quia
+                consequuntur magni dolores eos qu
+              </p>
+              {/* </JadeTablet> */}
             </Reveal>
           </div>
 

@@ -49,9 +49,9 @@ const bigShouldersDisplay = localFont({
 function RibbonCap({ mirrored }: { mirrored?: boolean }) {
   return (
     <svg
-      viewBox="0 0 40 60"
+      viewBox="0 0 26 60"
       preserveAspectRatio="none"
-      className="h-full w-[22px] shrink-0 md:w-[34px]"
+      className="h-full w-[14px] shrink-0 md:w-[24px]"
       style={mirrored ? { transform: 'scaleX(-1)' } : undefined}
       aria-hidden="true"
     >
@@ -60,27 +60,28 @@ function RibbonCap({ mirrored }: { mirrored?: boolean }) {
           id={`ribbonGold-${mirrored ? 'r' : 'l'}`}
           x1="0"
           y1="0"
-          x2="0"
+          x2="1"
           y2="1"
         >
-          <stop offset="0%" stopColor="#FFE3A1" />
-          <stop offset="100%" stopColor="#C98A00" />
+          <stop offset="0%" stopColor="#FCEDB0" />
+          <stop offset="30%" stopColor="#E8C158" />
+          <stop offset="60%" stopColor="#C9971F" />
+          <stop offset="100%" stopColor="#E8C158" />
         </linearGradient>
       </defs>
       <path
-        d="M15,2 L40,2 L40,58 L15,58 L2,30 Z"
+        d="M 26,5 L 10,5 Q 5,5 5,10 L 5,25 Q 5,29 1.5,30 Q 5,31 5,35 L 5,50 Q 5,55 10,55 L 26,55 Z"
         fill={`url(#ribbonGold-${mirrored ? 'r' : 'l'})`}
-        stroke="#8A5A00"
+        stroke="#9A7315"
         strokeWidth="1.5"
         strokeLinejoin="round"
       />
-      <circle
-        cx="14"
-        cy="30"
-        r="4.5"
-        fill="#E1362B"
-        stroke="#7A0000"
+      <path
+        d="M 26,7.5 L 10.5,7.5 Q 7.5,7.5 7.5,10.5 L 7.5,25 Q 7.5,28.5 4.5,30 Q 7.5,31.5 7.5,35 L 7.5,49.5 Q 7.5,52.5 10.5,52.5 L 26,52.5"
+        fill="none"
+        stroke="#FCEDB0"
         strokeWidth="1"
+        opacity="0.8"
       />
     </svg>
   );
@@ -91,13 +92,17 @@ function RibbonTag({ children }: { children: React.ReactNode }) {
     <div className="mx-auto mb-3 flex h-fit max-w-full items-stretch drop-shadow-md md:mb-4">
       <RibbonCap />
       <div
-        className="flex min-h-[38px] items-center justify-center px-3 text-center md:min-h-[56px] md:px-5"
+        className="relative flex min-h-[38px] items-center justify-center px-3 text-center md:min-h-[56px] md:px-5"
         style={{
-          background: 'linear-gradient(to bottom, #FFE3A1, #C98A00)',
-          borderTop: '1.5px solid #8A5A00',
-          borderBottom: '1.5px solid #8A5A00',
+          background:
+            'linear-gradient(155deg, #FDF6E3 0%, #F3E7C4 35%, #FFFDF5 50%, #EBDCB2 65%, #FDF6E3 100%)',
+          borderTop: '3px solid',
+          borderBottom: '3px solid',
+          borderImage:
+            'linear-gradient(90deg, #E8C158, #FCEDB0 20%, #C9971F 50%, #FCEDB0 80%, #E8C158) 1',
         }}
       >
+        <div className="pointer-events-none absolute inset-x-0 inset-y-[3px] border-y border-[#D9BC6C]" />
         <h3
           className={`${bigShouldersDisplay.className} font-semibold uppercase text-[#B90407]`}
         >

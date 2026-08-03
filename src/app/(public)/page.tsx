@@ -72,7 +72,7 @@ const bigShouldersStencilDisplay = localFont({
 export default async function HomePage() {
   return (
     <div className="">
-      <section className="relative min-h-[50vh] lg:min-h-[870px] w-full overflow-hidden bg-[#4D0000]/90">
+      <section className="relative min-h-[120vw] sm:min-h-[105vw] lg:min-h-[1000px] w-full overflow-hidden bg-[#4D0000]/90">
         <Image
           src={backgroundSection1}
           alt=""
@@ -87,7 +87,7 @@ export default async function HomePage() {
           priority
         />
         <div className="relative z-10 flex flex-col items-center h-full pt-8 pb-16 lg:pt-16 lg:pb-24">
-          <div className="relative w-[88%] max-w-[1200px] lg:w-full lg:max-w-[700px]">
+          <div className="relative w-[88%] max-w-[1200px] lg:w-full lg:max-w-[950px]">
             <Image
               src={bannerImage}
               alt="Dược Linh Các Banner"
@@ -98,7 +98,7 @@ export default async function HomePage() {
             />
             {/* DƯỢC LINH CÁC */}
             <h1
-              className={`${protestStrike.className} absolute top-[52%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center whitespace-nowrap animate-glow-text text-[28px] min-[640px]:max-[1024px]:text-[clamp(38px,7vw,52px)] lg:text-[52px]`}
+              className={`${protestStrike.className} absolute top-[52%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center whitespace-nowrap animate-glow-text text-[28px] min-[640px]:max-[1024px]:text-[clamp(38px,7vw,52px)] lg:text-[68px]`}
               style={{
                 top: '50%',
                 lineHeight: '1',
@@ -112,7 +112,7 @@ export default async function HomePage() {
 
             {/* VƯỢT TRÊN KỲ VỌNG CỦA BẠN */}
             <p
-              className={`${beVietnamPro.className} absolute left-1/2 -translate-x-1/2 w-full text-center text-[7px] sm:text-[9px] md:text-[11px] lg:text-[14px]`}
+              className={`${beVietnamPro.className} absolute left-1/2 -translate-x-1/2 w-full text-center text-[7px] sm:text-[9px] md:text-[11px] lg:text-[17px]`}
               style={{
                 top: '60%',
                 fontStyle: 'italic',
