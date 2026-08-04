@@ -142,7 +142,7 @@ export function Footer() {
                 </a>
               </p>
               <p>ĐỊA CHỈ:</p>
-              <p>290/2 Nam kì Khởi Nghĩa, phường Võ Thị Sáu, Quận 3, TP.HCM</p>
+              <p>290/2 Nam Kỳ Khởi Nghĩa, phường Võ Thị Sáu, Quận 3, TP.HCM</p>
               <p>71 Phan Đăng Lưu, phường Suối Hoa, Bắc Ninh</p>
             </div>
 
