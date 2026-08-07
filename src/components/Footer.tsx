@@ -34,7 +34,7 @@ export function Footer() {
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 py-8 md:px-10 md:py-12 lg:py-16">
         <div className="grid grid-cols-1 gap-8 text-[#771010] md:grid-cols-12 md:gap-6 lg:gap-8">
           {/* Cột 1: Logo & Slogan */}
-          <div className="flex flex-col items-center md:col-span-3 md:items-start md:text-left">
+          <div className="flex flex-col items-center text-center md:col-span-3 md:mr-8">
             <div className="relative h-[100px] w-[50px] lg:h-[152px] lg:w-[77px]">
               <Image
                 src={logo}
@@ -45,7 +45,7 @@ export function Footer() {
             </div>
 
             <div
-              className="mt-4 text-center text-[14px] font-semibold uppercase leading-[1.2] tracking-[-0.03em] md:text-left md:text-[13px] lg:mt-6 lg:text-[16.8px]"
+              className="mt-4 text-center text-[14px] font-semibold uppercase leading-[1.2] tracking-[-0.03em] md:text-[13px] lg:mt-6 lg:text-[16.8px]"
               style={{
                 fontFamily: 'var(--font-big-shoulders-display)',
                 fontFeatureSettings: "'salt' on, 'kern' off",

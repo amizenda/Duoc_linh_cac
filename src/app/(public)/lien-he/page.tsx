@@ -67,9 +67,9 @@ export default function ContactPage() {
                 priority
               />
               <h1
-                className={`${bigShouldersDisplay.className} text-center uppercase`}
+                className={`${bigShouldersDisplay.className} text-center uppercase lg:text-[42px]`}
                 style={{
-                  fontSize: 'clamp(20px, 5vw, 32.7345px)',
+                  fontSize: 'clamp(20px, 5vw, 42px)',
                   fontWeight: 600,
                   lineHeight: '1.2',
                   letterSpacing: '-0.03em',
@@ -104,7 +104,7 @@ export default function ContactPage() {
                     />
                   </div>
                   <h2
-                    className="font-bold text-[#FFF017] text-[28px] md:text-[41.626px] leading-tight md:leading-[53px]"
+                    className={`${bigShouldersDisplay.className} font-bold text-[#FFF017] text-[28px] md:text-[48px] leading-tight md:leading-[53px] `}
                     style={{ marginLeft: '62px' }}
                   >
                     DƯỢC LINH CÁC

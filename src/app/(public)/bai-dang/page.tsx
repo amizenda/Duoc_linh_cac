@@ -198,7 +198,7 @@ export default async function PostListPage(props: {
               priority
             />
             <h1
-              className={`${bigShouldersDisplay.className} text-[28px] lg:text-[32px] text-center uppercase leading-tight mr-2 lg:mr-4`}
+              className={`${bigShouldersDisplay.className} text-[28px] lg:text-[42px] text-center uppercase leading-tight mr-2 lg:mr-4`}
               style={{
                 fontWeight: 600,
                 letterSpacing: '-0.03em',
