@@ -125,31 +125,29 @@ export default function HerbListPage() {
               {/* Block 1 */}
               <div className="flex flex-col items-center xl:block">
                 <h3
-                  className={`${bigShouldersDisplay.className} relative xl:absolute text-center uppercase font-semibold text-[#BA0B00] leading-[1.2] tracking-[-0.03em] w-full xl:w-[724px] xl:h-[73px] xl:left-[235px] top-8 xl:top-[95px]`}
+                  className={`${bigShouldersDisplay.className} relative xl:absolute text-center uppercase font-semibold text-[#BA0B00] leading-[1.2] tracking-[-0.03em] w-full xl:w-[724px] xl:h-[73px] xl:left-[235px] top-8 xl:top-[75px]`}
                 >
                   <span className="text-[28px] xl:text-[60.77px]">
                     tại sao phải có kiến thức về thuốc?
                   </span>
                 </h3>
                 <div
-                  className={`relative xl:absolute ${beVietnamPro.className} text-[#690F0C] font-normal text-justify flex items-center w-full xl:w-[1029px] xl:h-[120px] xl:left-[77px] xl:top-[221px] mt-12 xl:mt-0 px-2 xl:px-0`}
+                  className={`relative xl:absolute ${beVietnamPro.className} text-[#690F0C] font-normal text-justify flex items-center w-full xl:w-[1029px] xl:h-[180px] xl:left-[77px] xl:top-[181px] mt-12 xl:mt-0 px-2 xl:px-0`}
                 >
                   <p className="text-[14px] xl:text-[16.68px] leading-[1.6] xl:leading-[21px]">
-                    Lorsem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum." Section 1.10.32 of "de
-                    Finibus Bonorum et Malorum", written by Cicero in 45 BC "Sed
-                    ut perspiciatis unde omnis iste natus error sit voluptatem
-                    accusantium doloremque laudantium, totam rem aperiam, eaque
-                    ipsa quae ab illo inventore veritatis et quasi architecto
-                    beatae vitae dicta sunt explicabo. Nemo enim ipsam
-                    voluptatem quia voluptas sit aspernatur aut odit aut fugit,
-                    sed quia consequuntur magni dolores eos qu
+                    Mỗi vị thuốc đều có tính vị, quy kinh và công năng riêng.
+                    Nếu dùng sai liều lượng, sai thể trạng hoặc phối hợp không
+                    đúng cách, dược liệu quý cũng có thể trở thành con dao hai
+                    lưỡi. Ví dụ, nhân sâm vốn đại bổ nguyên khí nhưng nếu dùng
+                    cho người đang cảm sốt hoặc thể nhiệt lại có thể phản tác
+                    dụng, gây bứt rứt, khó ngủ.
+                    <br />
+                    <br />
+                    Vì vậy, hiểu biết về dược tính, thể trạng và bệnh lý là nền
+                    tảng để dùng thuốc an toàn, tránh tình trạng “có bệnh vái tứ
+                    phương”, tự ý dùng thuốc theo lời truyền miệng mà không rõ
+                    cơ chế tác dụng, từ đó phát huy trọn vẹn hiệu quả chữa bệnh
+                    của từng vị dược liệu.
                   </p>
                 </div>
               </div>
@@ -157,31 +155,29 @@ export default function HerbListPage() {
               {/* Block 2 */}
               <div className="flex flex-col items-center xl:block mt-10 xl:mt-0">
                 <h3
-                  className={`${bigShouldersDisplay.className} relative xl:absolute text-center uppercase font-semibold text-[#BA0B00] leading-[1.2] tracking-[-0.03em] w-full xl:w-[921px] xl:h-[73px] xl:left-[127px] xl:top-[425px]`}
+                  className={`${bigShouldersDisplay.className} relative xl:absolute text-center uppercase font-semibold text-[#BA0B00] leading-[1.2] tracking-[-0.03em] w-full xl:w-[921px] xl:h-[73px] xl:left-[127px] xl:top-[405px]`}
                 >
                   <span className="text-[28px] xl:text-[60.77px]">
                     TẠI SAO PHẢI PHỐI THUỐC KHÔNG DÙNG ĐƠN LẺ?
                   </span>
                 </h3>
                 <div
-                  className={`relative xl:absolute ${beVietnamPro.className} text-[#690F0C] font-normal text-justify flex items-center w-full xl:w-[1029px] xl:h-[120px] xl:left-[77px] xl:top-[551px] mt-4 xl:mt-0 px-2 xl:px-0`}
+                  className={`relative xl:absolute ${beVietnamPro.className} text-[#690F0C] font-normal text-justify flex items-center w-full xl:w-[1029px] xl:h-[180px] xl:left-[77px] xl:top-[511px] mt-4 xl:mt-0 px-2 xl:px-0`}
                 >
                   <p className="text-[14px] xl:text-[16.68px] leading-[1.6] xl:leading-[21px]">
-                    Lorsem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum." Section 1.10.32 of "de
-                    Finibus Bonorum et Malorum", written by Cicero in 45 BC "Sed
-                    ut perspiciatis unde omnis iste natus error sit voluptatem
-                    accusantium doloremque laudantium, totam rem aperiam, eaque
-                    ipsa quae ab illo inventore veritatis et quasi architecto
-                    beatae vitae dicta sunt explicabo. Nemo enim ipsam
-                    voluptatem quia voluptas sit aspernatur aut odit aut fugit,
-                    sed quia consequuntur magni dolores eos qu
+                    Trong Y học cổ truyền, các vị thuốc thường được phối ngũ
+                    theo nguyên tắc quân - thần - tá - sứ để tương hỗ, dẫn dắt
+                    và trung hòa dược tính lẫn nhau. Vị quân đóng vai trò chủ
+                    trị, vị thần hỗ trợ tăng hiệu quả, vị tá giảm bớt độc tính
+                    hoặc tác dụng phụ, còn vị sứ dẫn thuốc đến đúng tạng phủ cần
+                    điều trị.
+                    <br />
+                    <br />
+                    Một bài thuốc phối hợp hợp lý sẽ tăng hiệu quả điều trị và
+                    giảm bớt tác dụng phụ, thay vì dùng đơn lẻ một vị thuốc
+                    riêng biệt vốn dễ gây mất cân bằng âm dương trong cơ thể.
+                    Đây cũng chính là lý do vì sao các bài thuốc gia truyền
+                    thường gồm nhiều vị phối hợp thay vì chỉ một vị duy nhất.
                   </p>
                 </div>
               </div>
@@ -189,31 +185,29 @@ export default function HerbListPage() {
               {/* Block 3 */}
               <div className="flex flex-col items-center xl:block mt-10 xl:mt-0 mb-10 xl:mb-0">
                 <h3
-                  className={`${bigShouldersDisplay.className} relative xl:absolute text-center uppercase font-semibold text-[#BA0B00] leading-[1.2] tracking-[-0.03em] w-full xl:w-[724px] xl:h-[73px] xl:left-[235px] xl:top-[745px]`}
+                  className={`${bigShouldersDisplay.className} relative xl:absolute text-center uppercase font-semibold text-[#BA0B00] leading-[1.2] tracking-[-0.03em] w-full xl:w-[724px] xl:h-[73px] xl:left-[235px] xl:top-[735px]`}
                 >
                   <span className="text-[28px] xl:text-[60.77px]">
-                    tại sao phải có kiến thức về thuốc?
+                    dùng đúng liều lượng và thời điểm
                   </span>
                 </h3>
                 <div
-                  className={`relative xl:absolute ${beVietnamPro.className} text-[#690F0C] font-normal text-justify flex items-center w-full xl:w-[1029px] xl:h-[120px] xl:left-[77px] xl:top-[891px] mt-4 xl:mt-0 px-2 xl:px-0`}
+                  className={`relative xl:absolute ${beVietnamPro.className} text-[#690F0C] font-normal text-justify flex items-center w-full xl:w-[1029px] xl:h-[180px] xl:left-[77px] xl:top-[841px] mt-4 xl:mt-0 px-2 xl:px-0`}
                 >
                   <p className="text-[14px] xl:text-[16.68px] leading-[1.6] xl:leading-[21px]">
-                    Lorsem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum." Section 1.10.32 of "de
-                    Finibus Bonorum et Malorum", written by Cicero in 45 BC "Sed
-                    ut perspiciatis unde omnis iste natus error sit voluptatem
-                    accusantium doloremque laudantium, totam rem aperiam, eaque
-                    ipsa quae ab illo inventore veritatis et quasi architecto
-                    beatae vitae dicta sunt explicabo. Nemo enim ipsam
-                    voluptatem quia voluptas sit aspernatur aut odit aut fugit,
-                    sed quia consequuntur magni dolores eos qu
+                    Dùng đúng liều lượng và đúng thời điểm là nguyên tắc sống
+                    còn khi dùng thuốc. Uống quá liều hoặc sai thời điểm trong
+                    ngày có thể làm giảm hiệu quả, thậm chí gây hại cho cơ thể.
+                    Chẳng hạn, thuốc bổ thường nên dùng vào buổi sáng để cơ thể
+                    hấp thu tốt nhất, trong khi thuốc an thần lại phù hợp dùng
+                    vào buổi tối trước khi ngủ.
+                    <br />
+                    <br />
+                    Vì vậy, người bệnh nên tuân thủ hướng dẫn của thầy thuốc
+                    thay vì tự ý gia giảm liều lượng theo cảm tính, đồng thời
+                    kiên trì dùng đủ liệu trình để dược tính có đủ thời gian
+                    phát huy tác dụng, tránh bỏ dở giữa chừng khiến việc điều
+                    trị không đạt hiệu quả như mong muốn.
                   </p>
                 </div>
               </div>
@@ -276,25 +270,20 @@ export default function HerbListPage() {
                   <p
                     className={`${beVietnamPro.className} text-[#5A3410] font-normal text-justify text-[10px] xl:text-[16.68px] leading-[1.5] xl:leading-[21px]`}
                   >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.&quot;
+                    Thuốc Nam là những vị thuốc có nguồn gốc từ cây cỏ, hoa lá
+                    quen thuộc trên đất Việt, được ông cha ta đúc kết qua hàng
+                    ngàn năm kinh nghiệm thực tiễn, gắn liền với khí hậu, thổ
+                    nhưỡng và thể trạng của người Việt Nam.
                     <br />
                     <br />
-                    Section 1.10.32 of &quot;de Finibus Bonorum et
-                    Malorum&quot;, written by Cicero in 45 BC
+                    Chính vì sinh trưởng cùng một vùng đất, cùng chịu ảnh hưởng
+                    của cùng một khí hậu với con người nơi đó, thuốc Nam mang
+                    dược tính hài hòa, dễ hấp thu và ít gây phản ứng phụ hơn so
+                    với các dược liệu ngoại lai.
                     <br />
-                    &quot;Sed ut perspiciatis unde omnis iste natus error sit
-                    voluptatem accusantium doloremque laudantium, totam rem
-                    aperiam, eaque ipsa quae ab illo inventore veritatis et
-                    quasi architecto beatae vitae dicta sunt explicabo. Nemo
-                    enim ipsam voluptatem quia voluptas sit aspernatur aut odit
-                    aut fugit, sed quia consequuntur magni dolores eos qu
+                    Đây cũng là lý do vì sao thuốc Nam được xem là nguồn linh
+                    dược quý giá, gần gũi mà hiệu quả, xứng đáng được gìn giữ và
+                    phát huy trong đời sống hiện đại.
                   </p>
                 </ScrollPaper>
               </Reveal>
@@ -332,25 +321,20 @@ export default function HerbListPage() {
                   <p
                     className={`${beVietnamPro.className} text-[#5A3410] font-normal text-justify text-[10px] xl:text-[16.68px] leading-[1.5] xl:leading-[21px]`}
                   >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.&quot;
+                    Thuốc Bắc là hệ thống dược liệu có nguồn gốc từ nền Y học cổ
+                    truyền Trung Hoa, được lưu truyền và Việt hóa qua nhiều thế
+                    hệ lương y, trở thành một phần không thể tách rời của nền Y
+                    học cổ truyền Việt Nam.
                     <br />
                     <br />
-                    Section 1.10.32 of &quot;de Finibus Bonorum et
-                    Malorum&quot;, written by Cicero in 45 BC
+                    Với hệ thống lý luận âm dương, ngũ hành và tạng phủ kinh lạc
+                    chặt chẽ, thuốc Bắc thường được bào chế công phu và phối hợp
+                    thành các bài thuốc hoàn chỉnh, hướng đến điều trị tận gốc
+                    căn nguyên bệnh tật.
                     <br />
-                    &quot;Sed ut perspiciatis unde omnis iste natus error sit
-                    voluptatem accusantium doloremque laudantium, totam rem
-                    aperiam, eaque ipsa quae ab illo inventore veritatis et
-                    quasi architecto beatae vitae dicta sunt explicabo. Nemo
-                    enim ipsam voluptatem quia voluptas sit aspernatur aut odit
-                    aut fugit, sed quia consequuntur magni dolores eos qu
+                    Sự kết hợp giữa thuốc Nam và thuốc Bắc, giữa kinh nghiệm bản
+                    địa và tinh hoa y học lâu đời, chính là nền tảng tạo nên
+                    chiều sâu tri thức của Y học cổ truyền ngày nay.
                   </p>
                 </ScrollPaper>
               </Reveal>
@@ -392,46 +376,38 @@ export default function HerbListPage() {
                 className={`${beVietnamPro.className} text-[#F3ECC7] font-normal text-justify text-[10px] xl:text-[16.68px] leading-[1.5] xl:leading-[21px]`}
                 style={{ textShadow: '0 1px 1px rgba(0,0,0,0.5)' }}
               >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est
-                laborum.&quot;
+                Một vị thuốc muốn trở thành linh dược không chỉ dựa vào bản chất
+                dược liệu, mà còn phụ thuộc vào huyền cơ hội tụ đủ ba yếu tố:
+                thiên thời, địa lợi và nhân hòa. Cây thuốc hái đúng mùa, đủ tuổi
+                sẽ tích lũy dược tính tinh túy nhất; đất đai nơi cây sinh trưởng
+                quyết định khí vị và công năng của dược liệu; còn bàn tay người
+                bào chế, với tâm huyết và kinh nghiệm gia truyền, là yếu tố cuối
+                cùng đánh thức trọn vẹn linh khí ẩn chứa trong từng vị thuốc.
                 <br />
                 <br />
-                Section 1.10.32 of &quot;de Finibus Bonorum et Malorum&quot;,
-                written by Cicero in 45 BC
-                <br />
-                &quot;Sed ut perspiciatis unde omnis iste natus error sit
-                voluptatem accusantium doloremque laudantium, totam rem aperiam,
-                eaque ipsa quae ab illo inventore veritatis et quasi architecto
-                beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
-                quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                consequuntur magni dolores eos qu
+                Chính sự hòa quyện giữa tự nhiên, đất trời và con người đã tạo
+                nên những bài thuốc không đơn thuần là sự cộng gộp của các vị
+                dược liệu, mà là kết tinh của cả một quá trình thấu hiểu quy
+                luật vận hành của vạn vật. Đó cũng là lý do vì sao mỗi bài thuốc
+                gia truyền tại Dược Linh Các đều được gìn giữ, chưng cất theo
+                đúng huyền cơ truyền thống, để mỗi vị thuốc khi đến tay người
+                dùng đều mang trọn giá trị của một linh dược đích thực.
                 <br />
                 <br />
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est
-                laborum.&quot;
+                Huyền cơ ấy không nằm trong sách vở, mà được truyền lại qua
+                nhiều thế hệ lương y bằng chính sự quan sát, chiêm nghiệm và
+                thực hành không ngừng nghỉ — từ cách chọn đất trồng, thời điểm
+                thu hái, đến bí quyết sơ chế, bào chế sao cho dược tính không bị
+                hao hụt theo thời gian. Mỗi công đoạn tưởng chừng nhỏ nhặt ấy
+                lại chính là nơi gửi gắm tâm huyết và trách nhiệm của người làm
+                nghề thuốc đối với sức khỏe người dùng.
                 <br />
                 <br />
-                Section 1.10.32 of &quot;de Finibus Bonorum et Malorum&quot;,
-                written by Cicero in 45 BC
-                <br />
-                &quot;Sed ut perspiciatis unde omnis iste natus error sit
-                voluptatem accusantium doloremque laudantium, totam rem aperiam,
-                eaque ipsa quae ab illo inventore veritatis et quasi architecto
-                beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
-                quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                consequuntur magni dolores eos qu
+                Tại Dược Linh Các, việc gìn giữ huyền cơ gia truyền không chỉ là
+                bảo tồn một bài thuốc, mà còn là tiếp nối một mạch nguồn tri
+                thức đã được đúc kết qua nhiều đời, để mỗi thế hệ sau vẫn có thể
+                thừa hưởng trọn vẹn giá trị của linh dược, góp phần nuôi dưỡng
+                sức khỏe bền vững theo năm tháng.
               </p>
               {/* </JadeTablet> */}
             </Reveal>
@@ -455,7 +431,7 @@ export default function HerbListPage() {
             </h1>
           </div>
 
-          {/* Item 1: THUỐC 1 */}
+          {/* Item 1: ĐINH LĂNG */}
           <div className="w-full flex flex-col xl:block items-center gap-6 xl:gap-0">
             {/* Title */}
             <div className="relative xl:absolute flex items-center justify-center xl:top-[4820px] w-full max-w-[572px] aspect-[572/193] xl:left-1/2 xl:-translate-x-1/2">
@@ -469,7 +445,7 @@ export default function HerbListPage() {
               <h2
                 className={`${bigShouldersDisplay.className} text-center uppercase font-semibold text-[#B90407] leading-[1.2] tracking-[-0.03em]`}
               >
-                <span className="text-[20px] xl:text-[40.58px]">THUỐC 1</span>
+                <span className="text-[20px] xl:text-[40.58px]">ĐINH LĂNG</span>
               </h2>
             </div>
 
@@ -493,32 +469,28 @@ export default function HerbListPage() {
                   <p
                     className={`${beVietnamPro.className} text-[#5A3410] font-normal text-justify text-[10px] xl:text-[16.68px] leading-[1.5] xl:leading-[21px]`}
                   >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.&quot;
+                    Đinh lăng từ lâu đã được xem là “nhân sâm của người nghèo”
+                    trong dân gian Việt Nam, bởi rễ cây chứa nhiều hoạt chất quý
+                    có tác dụng bồi bổ cơ thể, tăng cường sức đề kháng và hỗ trợ
+                    lưu thông khí huyết.
                     <br />
                     <br />
-                    Section 1.10.32 of &quot;de Finibus Bonorum et
-                    Malorum&quot;, written by Cicero in 45 BC
+                    Theo Y học cổ truyền, đinh lăng có vị ngọt, hơi đắng, tính
+                    mát, thường được dùng để hỗ trợ an thần, giảm mệt mỏi và
+                    kích thích tiêu hóa. Lá đinh lăng còn được dùng để nấu nước
+                    uống hằng ngày, giúp cơ thể thanh nhẹ và khí huyết lưu
+                    thông.
                     <br />
-                    &quot;Sed ut perspiciatis unde omnis iste natus error sit
-                    voluptatem accusantium doloremque laudantium, totam rem
-                    aperiam, eaque ipsa quae ab illo inventore veritatis et
-                    quasi architecto beatae vitae dicta sunt explicabo. Nemo
-                    enim ipsam voluptatem quia voluptas sit aspernatur aut odit
-                    aut fugit, sed quia consequuntur magni dolores eos qu
+                    Với đặc tính lành, dễ tìm và gần gũi trong đời sống, đinh
+                    lăng xứng đáng là một trong những vị thuốc dân tộc quý giá,
+                    được nhiều gia đình Việt tin dùng qua nhiều thế hệ.
                   </p>
                 </ScrollPaper>
               </Reveal>
             </div>
           </div>
 
-          {/* Item 2: THUỐC 2 */}
+          {/* Item 2: NHÂN SÂM */}
           <div className="w-full flex flex-col xl:block items-center gap-6 xl:gap-0">
             {/* Title */}
             <div className="relative xl:absolute flex items-center justify-center xl:top-[5570px] w-full max-w-[572px] aspect-[572/193] xl:left-1/2 xl:-translate-x-1/2">
@@ -532,7 +504,7 @@ export default function HerbListPage() {
               <h2
                 className={`${bigShouldersDisplay.className} text-center uppercase font-semibold text-[#B90407] leading-[1.2] tracking-[-0.03em]`}
               >
-                <span className="text-[20px] xl:text-[40.58px]">THUỐC 2</span>
+                <span className="text-[20px] xl:text-[40.58px]">NHÂN SÂM</span>
               </h2>
             </div>
 
@@ -556,32 +528,27 @@ export default function HerbListPage() {
                   <p
                     className={`${beVietnamPro.className} text-[#5A3410] font-normal text-justify text-[10px] xl:text-[16.68px] leading-[1.5] xl:leading-[21px]`}
                   >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.&quot;
+                    Nhân sâm được mệnh danh là “vua của các loại thảo dược”
+                    trong Y học cổ truyền phương Đông, nổi tiếng với công năng
+                    đại bổ nguyên khí, ích huyết sinh tân và nâng cao thể trạng
+                    cho người suy nhược, mới ốm dậy.
                     <br />
                     <br />
-                    Section 1.10.32 of &quot;de Finibus Bonorum et
-                    Malorum&quot;, written by Cicero in 45 BC
+                    Với vị ngọt hơi đắng, tính ấm, nhân sâm thường được dùng để
+                    hỗ trợ phục hồi sức khỏe, tăng cường trí nhớ và cải thiện
+                    tuần hoàn khí huyết. Đây là vị thuốc quý được nhiều bài
+                    thuốc bổ dưỡng lựa chọn làm chủ vị.
                     <br />
-                    &quot;Sed ut perspiciatis unde omnis iste natus error sit
-                    voluptatem accusantium doloremque laudantium, totam rem
-                    aperiam, eaque ipsa quae ab illo inventore veritatis et
-                    quasi architecto beatae vitae dicta sunt explicabo. Nemo
-                    enim ipsam voluptatem quia voluptas sit aspernatur aut odit
-                    aut fugit, sed quia consequuntur magni dolores eos qu
+                    Tuy nhiên, do dược tính mạnh, nhân sâm cần được dùng đúng
+                    liều lượng và phù hợp với thể trạng từng người, tốt nhất nên
+                    có sự tư vấn của thầy thuốc trước khi sử dụng lâu dài.
                   </p>
                 </ScrollPaper>
               </Reveal>
             </div>
           </div>
 
-          {/* Item 3: THUỐC 3 */}
+          {/* Item 3: TAM THẤT */}
           <div className="w-full flex flex-col xl:block items-center gap-6 xl:gap-0">
             {/* Title */}
             <div className="relative xl:absolute flex items-center justify-center xl:top-[6330px] w-full max-w-[572px] aspect-[572/193] xl:left-1/2 xl:-translate-x-1/2">
@@ -595,7 +562,7 @@ export default function HerbListPage() {
               <h2
                 className={`${bigShouldersDisplay.className} text-center uppercase font-semibold text-[#B90407] leading-[1.2] tracking-[-0.03em]`}
               >
-                <span className="text-[20px] xl:text-[40.58px]">THUỐC 3</span>
+                <span className="text-[20px] xl:text-[40.58px]">TAM THẤT</span>
               </h2>
             </div>
 
@@ -619,25 +586,20 @@ export default function HerbListPage() {
                   <p
                     className={`${beVietnamPro.className} text-[#5A3410] font-normal text-justify text-[10px] xl:text-[16.68px] leading-[1.5] xl:leading-[21px]`}
                   >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.&quot;
+                    Tam thất được ví như “kim bất hoán” — vàng cũng không đổi
+                    được — trong Y học cổ truyền, nhờ công năng hành ứ, chỉ
+                    huyết và giảm sưng đau vượt trội, đặc biệt quý giá đối với
+                    phụ nữ sau sinh và người mới trải qua phẫu thuật.
                     <br />
                     <br />
-                    Section 1.10.32 of &quot;de Finibus Bonorum et
-                    Malorum&quot;, written by Cicero in 45 BC
+                    Với vị đắng ngọt, tính ấm, tam thất thường được dùng để hỗ
+                    trợ cầm máu, tan bầm và bồi bổ khí huyết. Củ tam thất cũng
+                    được nhiều gia đình dùng để hãm nước uống hoặc mài lấy bột
+                    pha uống nhằm tăng cường thể trạng.
                     <br />
-                    &quot;Sed ut perspiciatis unde omnis iste natus error sit
-                    voluptatem accusantium doloremque laudantium, totam rem
-                    aperiam, eaque ipsa quae ab illo inventore veritatis et
-                    quasi architecto beatae vitae dicta sunt explicabo. Nemo
-                    enim ipsam voluptatem quia voluptas sit aspernatur aut odit
-                    aut fugit, sed quia consequuntur magni dolores eos qu
+                    Là một trong những vị thuốc quý hiếm, tam thất thường mọc ở
+                    vùng núi cao, đòi hỏi nhiều năm chăm sóc mới có thể thu
+                    hoạch, càng khẳng định giá trị của một linh dược đích thực.
                   </p>
                 </ScrollPaper>
               </Reveal>

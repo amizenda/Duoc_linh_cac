@@ -685,8 +685,12 @@ export default async function HomePage() {
                         className={`${bigShouldersDisplay.className} text-center uppercase w-[65%] lg:w-full max-w-[368px] font-semibold text-[14px] lg:text-[27px] leading-[1.2] tracking-[-0.03em] text-[#FFF017]`}
                         style={{ fontFeatureSettings: "'salt' on, 'kern' off" }}
                       >
-                        THIÊN VŨ TUY KHOAN BẤT NHUẬN VÔ CĂN CHI THẢO THẦN Y
-                        QUẢNG ĐẠI NAN ĐỘ BẤT TÍN CHI NHÂN
+                        <span className="block whitespace-nowrap">
+                          THIÊN VŨ TUY KHOAN BẤT NHUẬN VÔ CĂN CHI THẢO
+                        </span>
+                        <span className="block whitespace-nowrap">
+                          THẦN Y QUẢNG ĐẠI NAN ĐỘ BẤT TÍN CHI NHÂN
+                        </span>
                       </p>
                     </div>
 

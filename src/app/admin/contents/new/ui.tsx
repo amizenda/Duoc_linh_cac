@@ -26,7 +26,7 @@ export function NewContentForm() {
   const [metaTitle, setMetaTitle] = useState('');
   const [metaDescription, setMetaDescription] = useState('');
 
-  const [authorName, setAuthorName] = useState('');
+  const [authorName, setAuthorName] = useState('Dược Linh Các');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<{

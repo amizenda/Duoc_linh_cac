@@ -129,25 +129,24 @@ export default function ServiceListPage() {
                     <div
                       className={`${beVietnamPro.className} text-[#5A3410] text-justify text-[12px] md:text-[15px] leading-[1.6] md:leading-[1.6] font-normal`}
                     >
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                      Duis aute irure dolor in reprehenderit in voluptate velit
-                      esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                      sint occaecat cupidatat non proident, sunt in culpa qui
-                      officia deserunt mollit anim id est laborum.&quot;
+                      Y trà dưỡng sinh là sự kết hợp giữa tinh hoa trà đạo và
+                      dược liệu quý trong Y học cổ truyền, được gia giảm theo
+                      từng thể trạng nhằm hỗ trợ điều hòa khí huyết, thanh lọc
+                      cơ thể và tăng cường sức đề kháng tự nhiên. Mỗi loại trà
+                      dưỡng sinh đều được phối chế từ các vị thảo dược lành
+                      tính, gần gũi với đời sống hằng ngày, giúp người dùng duy
+                      trì trạng thái an hòa cả về thể chất lẫn tinh thần.
                       <br />
                       <br />
-                      Section 1.10.32 of &quot;de Finibus Bonorum et
-                      Malorum&quot;, written by Cicero in 45 BC
+                      Không chỉ đơn thuần là thức uống, y trà còn mang triết lý
+                      “phòng bệnh hơn chữa bệnh” của y học phương Đông — dùng
+                      dưỡng sinh để nuôi dưỡng cơ thể từ gốc, giúp khí huyết lưu
+                      thông, tạng phủ được điều hòa theo quy luật tự nhiên của
+                      bốn mùa.
                       <br />
-                      &quot;Sed ut perspiciatis unde omnis iste natus error sit
-                      voluptatem accusantium doloremque laudantium, totam rem
-                      aperiam, eaque ipsa quae ab illo inventore veritatis et
-                      quasi architecto beatae vitae dicta sunt explicabo. Nemo
-                      enim ipsam voluptatem quia voluptas sit aspernatur aut
-                      odit aut fugit, sed quia consequuntur magni dolores eos qu
+                      Tùy theo nhu cầu và thể trạng của từng người, Dược Linh
+                      Các sẽ tư vấn loại trà phù hợp, đồng hành cùng quý khách
+                      trên hành trình chăm sóc sức khỏe lâu dài và bền vững.
                     </div>
                   </ScrollPaper>
                 </Reveal>
@@ -196,25 +195,23 @@ export default function ServiceListPage() {
                     <div
                       className={`${beVietnamPro.className} text-[#5A3410] text-justify text-[12px] md:text-[15px] leading-[1.6] md:leading-[1.6] font-normal`}
                     >
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                      Duis aute irure dolor in reprehenderit in voluptate velit
-                      esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                      sint occaecat cupidatat non proident, sunt in culpa qui
-                      officia deserunt mollit anim id est laborum.&quot;
+                      Thấu hiểu rằng không phải ai cũng có điều kiện đi lại thăm
+                      khám, Dược Linh Các mang đến dịch vụ tư vấn thầy thuốc tận
+                      nhà, giúp người bệnh được thăm hỏi, bắt mạch và hướng dẫn
+                      dùng thuốc ngay trong không gian quen thuộc của gia đình,
+                      tiết kiệm thời gian và công sức di chuyển.
                       <br />
                       <br />
-                      Section 1.10.32 of &quot;de Finibus Bonorum et
-                      Malorum&quot;, written by Cicero in 45 BC
+                      Song song đó, triết lý “thuốc tại vườn” hướng đến việc tận
+                      dụng nguồn dược liệu sẵn có quanh nơi sinh sống — những
+                      cây thuốc Nam quen thuộc trong vườn nhà — để bào chế thành
+                      các bài thuốc đơn giản, an toàn và gần gũi, giúp người dân
+                      chủ động chăm sóc sức khỏe ngay tại chỗ.
                       <br />
-                      &quot;Sed ut perspiciatis unde omnis iste natus error sit
-                      voluptatem accusantium doloremque laudantium, totam rem
-                      aperiam, eaque ipsa quae ab illo inventore veritatis et
-                      quasi architecto beatae vitae dicta sunt explicabo. Nemo
-                      enim ipsam voluptatem quia voluptas sit aspernatur aut
-                      odit aut fugit, sed quia consequuntur magni dolores eos qu
+                      Đây là sự kết hợp giữa kinh nghiệm y học cổ truyền lâu đời
+                      và điều kiện thực tế của từng gia đình, hướng đến một nền
+                      y học vừa hiệu quả vừa thiết thực, dễ tiếp cận với mọi
+                      người.
                     </div>
                   </ScrollPaper>
                 </Reveal>
@@ -263,25 +260,23 @@ export default function ServiceListPage() {
                     <div
                       className={`${beVietnamPro.className} text-[#5A3410] text-justify text-[12px] md:text-[15px] leading-[1.6] md:leading-[1.6] font-normal`}
                     >
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                      Duis aute irure dolor in reprehenderit in voluptate velit
-                      esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                      sint occaecat cupidatat non proident, sunt in culpa qui
-                      officia deserunt mollit anim id est laborum.&quot;
+                      Trong quan niệm Y học cổ truyền, con người là một tiểu vũ
+                      trụ chịu ảnh hưởng mật thiết từ môi trường xung quanh.
+                      Phong thủy không gian sống — hướng nhà, cách bài trí, sự
+                      lưu thông của khí — được xem là một trong những yếu tố góp
+                      phần tác động đến sức khỏe và tinh thần của gia chủ.
                       <br />
                       <br />
-                      Section 1.10.32 of &quot;de Finibus Bonorum et
-                      Malorum&quot;, written by Cicero in 45 BC
+                      Dịch vụ tư vấn phong thủy cải bệnh tại Dược Linh Các kết
+                      hợp giữa kiến thức phong thủy truyền thống và nguyên lý
+                      dưỡng sinh, nhằm gợi ý những điều chỉnh phù hợp trong
+                      không gian sống, giúp khí vận được hài hòa, hỗ trợ quá
+                      trình điều dưỡng và phục hồi sức khỏe.
                       <br />
-                      &quot;Sed ut perspiciatis unde omnis iste natus error sit
-                      voluptatem accusantium doloremque laudantium, totam rem
-                      aperiam, eaque ipsa quae ab illo inventore veritatis et
-                      quasi architecto beatae vitae dicta sunt explicabo. Nemo
-                      enim ipsam voluptatem quia voluptas sit aspernatur aut
-                      odit aut fugit, sed quia consequuntur magni dolores eos qu
+                      Đây là giải pháp đồng hành cùng liệu trình điều trị, dựa
+                      trên triết lý “thiên nhân hợp nhất” — con người sống thuận
+                      theo tự nhiên sẽ có nền tảng vững chắc để duy trì sự an
+                      hòa lâu dài.
                     </div>
                   </ScrollPaper>
                 </Reveal>
@@ -330,25 +325,24 @@ export default function ServiceListPage() {
                     <div
                       className={`${beVietnamPro.className} text-[#5A3410] text-justify text-[12px] md:text-[15px] leading-[1.6] md:leading-[1.6] font-normal`}
                     >
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                      Duis aute irure dolor in reprehenderit in voluptate velit
-                      esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                      sint occaecat cupidatat non proident, sunt in culpa qui
-                      officia deserunt mollit anim id est laborum.&quot;
+                      Y học cổ truyền là kho tàng tri thức được đúc kết qua
+                      nhiều thế hệ, dựa trên nguyên lý âm dương, ngũ hành và sự
+                      cân bằng giữa con người với tự nhiên. Các phương pháp như
+                      châm cứu, bấm huyệt, xoa bóp, dùng dược liệu... đều hướng
+                      đến việc điều hòa khí huyết, khơi thông kinh lạc và nâng
+                      cao khả năng tự chữa lành của cơ thể.
                       <br />
                       <br />
-                      Section 1.10.32 of &quot;de Finibus Bonorum et
-                      Malorum&quot;, written by Cicero in 45 BC
+                      Khác với việc chỉ tập trung điều trị triệu chứng, Y học cổ
+                      truyền chú trọng tìm hiểu căn nguyên gốc rễ của bệnh tật,
+                      từ đó xây dựng phác đồ phù hợp với thể trạng riêng của
+                      từng người.
                       <br />
-                      &quot;Sed ut perspiciatis unde omnis iste natus error sit
-                      voluptatem accusantium doloremque laudantium, totam rem
-                      aperiam, eaque ipsa quae ab illo inventore veritatis et
-                      quasi architecto beatae vitae dicta sunt explicabo. Nemo
-                      enim ipsam voluptatem quia voluptas sit aspernatur aut
-                      odit aut fugit, sed quia consequuntur magni dolores eos qu
+                      Tại Dược Linh Các, các phương pháp cổ truyền được kế thừa
+                      và vận dụng một cách linh hoạt, kết hợp kinh nghiệm gia
+                      truyền nhiều đời với sự thấu hiểu thể trạng người Việt,
+                      nhằm mang lại hiệu quả chăm sóc sức khỏe bền vững và toàn
+                      diện.
                     </div>
                   </ScrollPaper>
                 </Reveal>
