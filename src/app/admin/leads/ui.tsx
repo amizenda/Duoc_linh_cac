@@ -20,6 +20,9 @@ import {
   TableLoading,
   TableRow,
   TableScroll,
+  TrashIcon,
+  useConfirm,
+  useToast,
   UserIcon,
 } from '@/components/admin';
 
@@ -105,6 +108,8 @@ export function LeadsPage() {
   const sp = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  const toast = useToast();
+  const confirmAction = useConfirm();
 
   const [data, setData] = useState<AdminLeadListResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -159,6 +164,22 @@ export function LeadsPage() {
   useEffect(() => {
     return loadLeads();
   }, [loadLeads]);
+
+  const handleDelete = async (id: string) => {
+    const ok = await confirmAction(
+      'Bạn có chắc chắn muốn xóa liên hệ này? Hành động này không thể hoàn tác.',
+      { danger: true, confirmLabel: 'Xóa' },
+    );
+    if (!ok) return;
+    try {
+      await adminApi.deleteLead(id);
+      toast.show('Đã xóa liên hệ');
+      if (selectedLead?.id === id) setSelectedLead(null);
+      loadLeads();
+    } catch (e) {
+      toast.show(e instanceof Error ? e.message : 'Xóa thất bại', 'error');
+    }
+  };
 
   const handleFilter = (key: string, value: string) => {
     const newParams = new URLSearchParams(queryParams.toString());
@@ -386,16 +407,29 @@ export function LeadsPage() {
                         )}
                       </td>
                       <td className="px-6 py-4 align-top text-right">
-                        <Button
-                          variant="ghost"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setSelectedLead(lead);
-                          }}
-                          title="Xem"
-                        >
-                          <EyeIcon className="h-5 w-5" />
-                        </Button>
+                        <div className="flex justify-end gap-1">
+                          <Button
+                            variant="ghost"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedLead(lead);
+                            }}
+                            title="Xem"
+                          >
+                            <EyeIcon className="h-5 w-5" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            className="hover:bg-red-50 hover:text-red-600"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDelete(lead.id);
+                            }}
+                            title="Xóa"
+                          >
+                            <TrashIcon className="h-5 w-5" />
+                          </Button>
+                        </div>
                       </td>
                     </TableRow>
                   ))

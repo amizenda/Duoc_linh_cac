@@ -27,6 +27,7 @@ const NAV_SECTIONS: NavSection[] = [
 
 function isNavItemActive(pathname: string | null, href: string): boolean {
   if (!pathname) return false;
+  if (href === '/admin') return pathname === href;
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
